@@ -57,7 +57,6 @@ const SVCS = [
   { id: "performance", icon: <Target className="w-6 h-6" />, title: "Performance Marketing", short: "Full-funnel strategies engineered around ROAS and CPA.", color: "#059669", bg: "#ECFDF5", tagline: "Every Rupee Accountable.", features: ["Google Search & Shopping", "Meta Performance Campaigns", "YouTube Video Funnels", "Landing Page CRO", "ROAS & CPA Optimisation", "Weekly Performance Reviews"], results: [{ n: "120+", l: "Brands scaled" }, { n: "₹50Cr+", l: "Ad spend managed" }, { n: "3.8x", l: "Avg ROAS" }] },
   { id: "content", icon: <PenTool className="w-6 h-6" />, title: "Content Marketing", short: "Blogs, copy and brand storytelling that build authority.", color: "#0EA5E9", bg: "#E0F2FE", tagline: "Content That Ranks and Converts.", features: ["SEO Blog Writing", "Social Media Copywriting", "Email Campaigns", "Case Studies & Whitepapers", "Brand Storytelling", "Content Calendar Strategy"], results: [{ n: "3x", l: "Organic traffic growth" }, { n: "60%", l: "More time-on-site" }, { n: "45%", l: "Higher email opens" }] },
   { id: "seo", icon: <Search className="w-6 h-6" />, title: "SEO", short: "Technical SEO and link building that improves rankings.", color: "#DC2626", bg: "#FEF2F2", tagline: "Rank Higher. Grow Organically.", features: ["Full Technical Audit", "Keyword Research", "On-Page Optimisation", "Off-Page & Link Building", "Local SEO", "Monthly Ranking Reports"], results: [{ n: "2.5x", l: "Organic traffic" }, { n: "Top 5", l: "Keyword rankings" }, { n: "35%", l: "More organic leads" }] },
-  { id: "creative", icon: <Palette className="w-6 h-6" />, title: "Creative Production", short: "Ad creatives and motion graphics built to perform.", color: "#9333EA", bg: "#FAF5FF", tagline: "Visuals That Stop Scrolls.", features: ["Static Ad Creative Design", "Motion Graphics", "Video Ad Editing", "Brand Identity Design", "Product Photography", "Creative Briefs"], results: [{ n: "2.8x", l: "Higher engagement" }, { n: "5 days", l: "Turnaround" }, { n: "100+", l: "Creatives/month" }] },
   { id: "aeo", icon: <Search className="w-6 h-6" />, title: "AEO Services", short: "Optimising your brand for AI search engines like Perplexity & ChatGPT.", color: "#0D9488", bg: "#F0FDFA", tagline: "Be the Answer AI Gives.", features: ["AI Visibility Audit", "Answer Engine Optimisation", "Structured Data Markup", "Conversational Keyword Research", "Brand Authority Building", "AI Search Tracking"], results: [{ n: "85%", l: "AI Citation Rate" }, { n: "2x", l: "Brand Mentions" }, { n: "Top 3", l: "AI Recommendations" }] },
   { id: "design", icon: <Code className="w-6 h-6" />, title: "Design & Development", short: "High-converting landing pages and D2C storefronts.", color: "#4F46E5", bg: "#EEF2FF", tagline: "Built for Speed. Designed for Sales.", features: ["Custom Shopify Stores", "High-CVR Landing Pages", "UI/UX Design", "Web Performance Tuning", "Mobile-First Development", "Conversion Rate Optimisation"], results: [{ n: "45%", l: "CVR Improvement" }, { n: "90+", l: "PageSpeed Score" }, { n: "3x", l: "Faster Load Time" }] },
 ];
@@ -743,6 +742,44 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
 function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", brand: "", budget: "", service: "", msg: "" });
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!form.name || !form.email) return;
+    setLoading(true);
+    try {
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          template_id: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          user_id: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+          template_params: {
+            from_name: form.name,
+            from_email: form.email,
+            brand_name: form.brand,
+            budget: form.budget,
+            message: form.msg,
+            to_name: "Brand Propel Studio",
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send email");
+      }
+      
+      setSent(true);
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      alert("Failed to send message. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="pt-32 pb-24 px-[5%] bg-slate-50 min-h-screen">
@@ -799,10 +836,11 @@ function ContactPage() {
                 </select>
                 <textarea className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand outline-none transition-all h-32 resize-none" placeholder="Tell us about your brand and goals..." value={form.msg} onChange={e => setForm({...form, msg: e.target.value})} />
                 <button 
-                  className="w-full py-4 rounded-xl bg-brand text-white font-bold hover:bg-brand-dark shadow-xl shadow-brand/20 transition-all mt-4"
-                  onClick={() => { if(form.name && form.email) setSent(true); }}
+                  className="w-full py-4 rounded-xl bg-brand text-white font-bold hover:bg-brand-dark shadow-xl shadow-brand/20 transition-all mt-4 disabled:opacity-50"
+                  onClick={handleSubmit}
+                  disabled={loading}
                 >
-                  Send and Get Free Audit
+                  {loading ? "Sending..." : "Send and Get Free Audit"}
                 </button>
               </div>
             )}
@@ -817,6 +855,44 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
   const [heroRef, heroInView] = useInView(0);
   const [netRef, netInView] = useInView(0.05);
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", link: "" });
+
+  const handleSubmit = async () => {
+    if (!form.name || !form.email || !form.link) return;
+    setLoading(true);
+    try {
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          template_id: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          user_id: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+          template_params: {
+            from_name: form.name,
+            from_email: form.email,
+            influencer_link: form.link,
+            message: "New Influencer Application",
+            to_name: "Brand Propel Studio",
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send email");
+      }
+
+      setSent(true);
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      alert("Failed to send application. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const categories = [
     { t: "Beauty & Fashion", d: "150+ Creators", ic: "💄", col: "#C42D5A", bg: "#FFE4EC" },
@@ -984,10 +1060,16 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
                 </div>
               ) : (
                 <div className="flex flex-col gap-4">
-                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" placeholder="Full Name *" />
-                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" placeholder="Email Address *" />
-                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" placeholder="Instagram/YouTube Link *" />
-                  <button className="w-full py-4 rounded-xl bg-slate-900 text-white font-bold hover:bg-black transition-all mt-4" onClick={() => setSent(true)}>Apply to Join</button>
+                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" placeholder="Full Name *" value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
+                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" placeholder="Email Address *" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" placeholder="Instagram/YouTube Link *" value={form.link} onChange={e => setForm({...form, link: e.target.value})} />
+                  <button 
+                    className="w-full py-4 rounded-xl bg-slate-900 text-white font-bold hover:bg-black transition-all mt-4 disabled:opacity-50" 
+                    onClick={handleSubmit}
+                    disabled={loading}
+                  >
+                    {loading ? "Submitting..." : "Apply to Join"}
+                  </button>
                 </div>
               )}
             </div>
