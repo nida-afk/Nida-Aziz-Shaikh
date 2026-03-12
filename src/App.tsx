@@ -22,7 +22,9 @@ import {
   Clock,
   Users,
   BarChart3,
-  Globe
+  Globe,
+  Code,
+  Layout
 } from "lucide-react";
 
 // ─── CONSTANTS ───
@@ -33,7 +35,20 @@ const G5 = "#6B6B8A"; // Grayish Navy
 const G3 = "#C2C2D6"; // Light Gray
 const G1 = "#F4F4FA"; // Background Gray
 
-const CLIENTS = ["Flipkart", "boAt", "Tata CLiQ", "Samsung India", "Mamaearth", "Nykaa", "Meesho", "Puma India", "Wow Skin", "Sugar Cosmetics", "UrbanClap", "Mivi Audio", "Kapiva", "Beardo"];
+const CLIENTS = [
+  "Mahindra", 
+  "Sovereign Solutions Corp", 
+  "Stone DesignWorks", 
+  "Oodlebit", 
+  "Accessibility Ventures LLC", 
+  "ReadySetBoom", 
+  "Ameritech Data Solutions", 
+  "Sunstone BBQ Grill Outlet", 
+  "Zeta Technology Group Inc", 
+  "Greymantle's Politics and Culture", 
+  "SKJ Juris Services", 
+  "Crosspoint Designs, LLC"
+];
 
 const SVCS = [
   { id: "ugc", icon: <Play className="w-6 h-6" />, title: "UGC Content Production", short: "Authentic creator videos that convert at every funnel stage.", color: B, bg: "#EBF2FF", tagline: "Real People. Real Content. Real Conversions.", features: ["Unboxing & Review Videos", "Testimonials & Social Proof", "Tutorial & Demo Reels", "Lifestyle Content", "UGC for Meta, Google & YouTube", "Hook Testing & Multi-Variant"], results: [{ n: "3-5x", l: "Higher CTR" }, { n: "67%", l: "Lower CPA" }, { n: "48hr", l: "Avg delivery" }] },
@@ -43,15 +58,41 @@ const SVCS = [
   { id: "content", icon: <PenTool className="w-6 h-6" />, title: "Content Marketing", short: "Blogs, copy and brand storytelling that build authority.", color: "#0EA5E9", bg: "#E0F2FE", tagline: "Content That Ranks and Converts.", features: ["SEO Blog Writing", "Social Media Copywriting", "Email Campaigns", "Case Studies & Whitepapers", "Brand Storytelling", "Content Calendar Strategy"], results: [{ n: "3x", l: "Organic traffic growth" }, { n: "60%", l: "More time-on-site" }, { n: "45%", l: "Higher email opens" }] },
   { id: "seo", icon: <Search className="w-6 h-6" />, title: "SEO", short: "Technical SEO and link building that improves rankings.", color: "#DC2626", bg: "#FEF2F2", tagline: "Rank Higher. Grow Organically.", features: ["Full Technical Audit", "Keyword Research", "On-Page Optimisation", "Off-Page & Link Building", "Local SEO", "Monthly Ranking Reports"], results: [{ n: "2.5x", l: "Organic traffic" }, { n: "Top 5", l: "Keyword rankings" }, { n: "35%", l: "More organic leads" }] },
   { id: "creative", icon: <Palette className="w-6 h-6" />, title: "Creative Production", short: "Ad creatives and motion graphics built to perform.", color: "#9333EA", bg: "#FAF5FF", tagline: "Visuals That Stop Scrolls.", features: ["Static Ad Creative Design", "Motion Graphics", "Video Ad Editing", "Brand Identity Design", "Product Photography", "Creative Briefs"], results: [{ n: "2.8x", l: "Higher engagement" }, { n: "5 days", l: "Turnaround" }, { n: "100+", l: "Creatives/month" }] },
+  { id: "aeo", icon: <Search className="w-6 h-6" />, title: "AEO Services", short: "Optimising your brand for AI search engines like Perplexity & ChatGPT.", color: "#0D9488", bg: "#F0FDFA", tagline: "Be the Answer AI Gives.", features: ["AI Visibility Audit", "Answer Engine Optimisation", "Structured Data Markup", "Conversational Keyword Research", "Brand Authority Building", "AI Search Tracking"], results: [{ n: "85%", l: "AI Citation Rate" }, { n: "2x", l: "Brand Mentions" }, { n: "Top 3", l: "AI Recommendations" }] },
+  { id: "design", icon: <Code className="w-6 h-6" />, title: "Design & Development", short: "High-converting landing pages and D2C storefronts.", color: "#4F46E5", bg: "#EEF2FF", tagline: "Built for Speed. Designed for Sales.", features: ["Custom Shopify Stores", "High-CVR Landing Pages", "UI/UX Design", "Web Performance Tuning", "Mobile-First Development", "Conversion Rate Optimisation"], results: [{ n: "45%", l: "CVR Improvement" }, { n: "90+", l: "PageSpeed Score" }, { n: "3x", l: "Faster Load Time" }] },
 ];
 
 const STATS = [{ n: "500+", l: "Verified Creators" }, { n: "1B+", l: "Campaign Views" }, { n: "4.8x", l: "Avg ROAS" }, { n: "120+", l: "Brands Scaled" }];
 
 const TESTIMONIALS = [
-  { name: "Priya Mehta", role: "Founder, Plush & Co.", text: "Our ROAS went from 1.8x to 5.2x in 60 days purely through their UGC ad creatives. Best agency we've worked with.", avatar: "PM", col: B },
-  { name: "Rahul Sharma", role: "CMO, DermGlow India", text: "They genuinely understand the Indian D2C market. Every UGC piece resonates with our audience and converts consistently.", avatar: "RS", col: "#7C3AED" },
-  { name: "Ananya Singh", role: "Marketing Head, FitCore", text: "20 on-brand, converting UGC videos in month one and a campaign that cut our CPA by 40%. Remarkable results.", avatar: "AS", col: "#F97316" },
-  { name: "Siddharth V.", role: "CEO, UrbanNest", text: "Influencer campaigns drove Rs 2.4Cr in Q1 alone. They handled everything — sourcing, briefs, production, reporting.", avatar: "SV", col: "#059669" },
+  { 
+    name: "Project Manager", 
+    role: "Mahindra", 
+    text: "Codism's technical expertise and commitment to quality were evident throughout our digital transformation journey. They delivered a robust solution that exceeded our expectations.", 
+    avatar: "M", 
+    col: "#E31837"
+  },
+  { 
+    name: "CEO", 
+    role: "Sovereign Solutions Corp", 
+    text: "The team at Codism is highly professional and responsive. Their ability to translate complex requirements into functional software is impressive.", 
+    avatar: "S", 
+    col: "#1A56DB"
+  },
+  { 
+    name: "Founder", 
+    role: "Stone DesignWorks", 
+    text: "We've worked with many agencies, but Codism stands out for their attention to detail and proactive communication. Highly recommended for any scale.", 
+    avatar: "SD", 
+    col: "#7C3AED"
+  },
+  { 
+    name: "CTO", 
+    role: "Oodlebit", 
+    text: "Their development process is transparent and efficient. They helped us launch our platform ahead of schedule with zero major bugs.", 
+    avatar: "O", 
+    col: "#F97316"
+  },
 ];
 
 const CASE_STUDIES = [
@@ -227,13 +268,12 @@ function Navbar({ page, setPage, scrolled }: { page: string, setPage: (p: string
             )}
           </AnimatePresence>
         </div>
-        <button className={`text-sm font-semibold transition-colors ${page === "work" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => setPage("work")}>Our Work</button>
-        <button className={`text-sm font-semibold transition-colors ${page === "creators" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => setPage("creators")}>Creators</button>
+        <button className={`text-sm font-semibold transition-colors ${page === "influencer" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => setPage("influencer")}>Influencer</button>
         <button className={`text-sm font-semibold transition-colors ${page === "contact" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => setPage("contact")}>Contact</button>
       </div>
 
       <div className="flex gap-3 items-center">
-        <button className="hidden sm:inline-flex px-5 py-2 rounded-lg border-2 border-brand text-brand font-bold text-xs hover:bg-brand-light transition-all" onClick={() => setPage("creators")}>For Creators</button>
+        <button className="hidden sm:inline-flex px-5 py-2 rounded-lg border-2 border-brand text-brand font-bold text-xs hover:bg-brand-light transition-all" onClick={() => setPage("influencer")}>For Influencers</button>
         <button className="px-5 py-2 rounded-lg bg-brand text-white font-bold text-xs hover:bg-brand-dark shadow-lg shadow-brand/20 transition-all" onClick={() => setPage("contact")}>Free Audit</button>
         <button className="md:hidden text-slate-900" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X /> : <Menu />}
@@ -254,7 +294,7 @@ function Navbar({ page, setPage, scrolled }: { page: string, setPage: (p: string
               <button onClick={() => setIsOpen(false)}><X className="text-slate-900" /></button>
             </div>
             <div className="flex flex-col gap-4 mt-8">
-              {["Home", "Work", "Creators", "Contact"].map(item => (
+              {["Home", "Influencer", "Contact"].map(item => (
                 <button 
                   key={item} 
                   className="text-2xl font-bold text-slate-900 text-left"
@@ -300,8 +340,8 @@ function Foot({ setPage }: { setPage: (p: string) => void }) {
           </div>
         </div>
         {[
-          { t: "Services", ls: [{ l: "UGC Production", p: "svc-ugc" }, { l: "Influencer Marketing", p: "svc-influencer" }, { l: "Social Media Ads", p: "svc-social-ads" }, { l: "Performance Marketing", p: "svc-performance" }, { l: "Content Marketing", p: "svc-content" }, { l: "SEO", p: "svc-seo" }] },
-          { t: "Company", ls: [{ l: "About Us", p: "about" }, { l: "Our Work", p: "work" }, { l: "Blog", p: "blog" }, { l: "Creators", p: "creators" }, { l: "Contact", p: "contact" }] },
+          { t: "Services", ls: [{ l: "UGC Production", p: "svc-ugc" }, { l: "Influencer Marketing", p: "svc-influencer" }, { l: "Social Media Ads", p: "svc-social-ads" }, { l: "Performance Marketing", p: "svc-performance" }, { l: "AEO Services", p: "svc-aeo" }, { l: "Design & Dev", p: "svc-design" }] },
+          { t: "Company", ls: [{ l: "About Us", p: "about" }, { l: "Influencer", p: "influencer" }, { l: "Blog", p: "blog" }, { l: "Contact", p: "contact" }] },
           { t: "Contact", ls: [{ l: "hello@brandpropelstudio.in", p: "" }, { l: "+91 98765 43210", p: "" }, { l: "Mumbai, India", p: "" }, { l: "Bangalore, India", p: "" }] },
         ].map((col, i) => (
           <div key={i}>
@@ -333,6 +373,81 @@ function Foot({ setPage }: { setPage: (p: string) => void }) {
 }
 
 // ─── PAGES ───
+
+function ClientLogos() {
+  return (
+    <section className="py-24 px-[5%] bg-white border-y border-slate-100">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <Label>Trusted By Global Leaders</Label>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Our Prestigious Clients</h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12">
+          {CLIENTS.map((c, i) => (
+            <div key={i} className="flex items-center justify-center p-8 rounded-2xl bg-slate-50 border border-slate-100 grayscale hover:grayscale-0 transition-all hover:shadow-lg hover:bg-white group">
+              <div className="text-center">
+                <div className="text-lg font-black text-slate-400 group-hover:text-brand transition-colors tracking-tighter leading-tight uppercase italic">
+                  {c}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Testimonials() {
+  const [ref, inView] = useInView(0.05);
+  return (
+    <section ref={ref as any} className="py-24 px-[5%] bg-slate-50">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <Label>Client Success Stories</Label>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Verified Reviews from Clutch</h2>
+          <div className="flex items-center justify-center gap-2 text-brand font-bold">
+            <Star className="w-5 h-5 fill-current" />
+            <span>4.9/5.0 Average Rating</span>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {TESTIMONIALS.map((t, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: i * 0.1 }}
+              className="bg-white p-10 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 p-6">
+                <Quote className="w-12 h-12 text-slate-50 group-hover:text-brand/5 transition-colors" />
+              </div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-1 mb-6">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-amber-400 fill-current" />
+                  ))}
+                  <span className="ml-2 text-xs font-bold text-slate-400 uppercase tracking-widest">Verified Review</span>
+                </div>
+                <p className="text-lg text-slate-700 leading-relaxed italic mb-8">"{t.text}"</p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white shadow-lg" style={{ backgroundColor: t.col }}>
+                    {t.avatar}
+                  </div>
+                  <div>
+                    <div className="font-bold text-slate-900">{t.name}</div>
+                    <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{t.role}</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function Home({ setPage }: { setPage: (p: string) => void }) {
   const [heroRef, heroInView] = useInView(0);
@@ -439,6 +554,8 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       <Ticker />
+      
+      <ClientLogos />
 
       {/* SERVICES */}
       <section ref={svcRef as any} className="py-24 px-[5%] bg-white">
@@ -462,7 +579,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SVCS.slice(0, 6).map((s, i) => (
+          {SVCS.map((s, i) => (
             <motion.div 
               key={s.id}
               initial={{ opacity: 0, y: 20 }}
@@ -565,101 +682,6 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
         </div>
       </section>
 
-      {/* CREATORS */}
-      <section ref={creatorRef as any} className="py-24 px-[5%] bg-white">
-        <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
-          <div>
-            <Label>Creator Network</Label>
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              animate={creatorInView ? { opacity: 1, y: 0 } : {}}
-              className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900"
-            >
-              500+ Verified Creators.<br /><span className="text-brand">Hand-picked. Brand-safe.</span>
-            </motion.h2>
-          </div>
-          <button className="px-6 py-3 rounded-xl border-2 border-brand text-brand font-bold hover:bg-brand-light transition-all" onClick={() => setPage("creators")}>View All Creators</button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {CREATORS.map((c, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={creatorInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1 }}
-              className="p-6 rounded-2xl border border-slate-100 bg-white hover:shadow-xl transition-all flex items-center gap-4"
-            >
-              <div className="w-14 h-14 rounded-full flex items-center justify-center font-extrabold text-lg shrink-0" style={{ backgroundColor: c.bg, color: c.tc }}>
-                {c.name.split(" ").map(n => n[0]).join("")}
-              </div>
-              <div className="flex-1">
-                <div className="font-bold text-slate-900">{c.name}</div>
-                <div className="text-xs font-bold mt-0.5" style={{ color: c.tc }}>{c.niche}</div>
-                <div className="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">{c.handle} · {c.flw}</div>
-              </div>
-              <div className="bg-brand-light text-brand text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Verified</div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section ref={testRef as any} className="py-24 px-[5%] bg-brand-light relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-1/3 h-full bg-brand/5 -skew-x-12 translate-x-1/2" />
-        
-        <div className="flex flex-col lg:flex-row gap-16 items-center relative z-10">
-          <div className="lg:w-1/2">
-            <Label>Client Stories</Label>
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              animate={testInView ? { opacity: 1, y: 0 } : {}}
-              className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-8"
-            >
-              Brands Love Us.
-            </motion.h2>
-            <div className="flex gap-3">
-              {TESTIMONIALS.map((_, i) => (
-                <button 
-                  key={i} 
-                  onClick={() => setTIdx(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${i === tIdx ? "w-10 bg-brand" : "w-2 bg-brand/20"}`}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="lg:w-1/2 w-full">
-            <AnimatePresence mode="wait">
-              <motion.div 
-                key={tIdx}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="bg-white rounded-3xl p-10 md:p-14 shadow-2xl shadow-brand/10 relative"
-              >
-                <Quote className="absolute top-10 right-10 w-16 h-16 text-brand/10" />
-                <p className="text-xl md:text-2xl text-slate-700 leading-relaxed font-medium mb-10 italic">
-                  "{TESTIMONIALS[tIdx].text}"
-                </p>
-                <div className="flex items-center gap-5">
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center font-extrabold text-white text-xl" style={{ backgroundColor: TESTIMONIALS[tIdx].col }}>
-                    {TESTIMONIALS[tIdx].avatar}
-                  </div>
-                  <div>
-                    <div className="font-bold text-slate-900 text-lg">{TESTIMONIALS[tIdx].name}</div>
-                    <div className="text-sm text-slate-500">{TESTIMONIALS[tIdx].role}</div>
-                  </div>
-                  <div className="ml-auto hidden sm:flex gap-1 text-amber-400">
-                    {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-current" />)}
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-      </section>
-
       {/* PRICING */}
       <section ref={priceRef as any} className="py-24 px-[5%] bg-white">
         <div className="text-center mb-16">
@@ -711,6 +733,8 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* CTA BAND */}
+      <Testimonials />
+
       <CTABand setPage={setPage} />
     </>
   );
@@ -789,111 +813,189 @@ function ContactPage() {
   );
 }
 
-function WorkPage({ setPage }: { setPage: (p: string) => void }) {
-  const [ref, inView] = useInView(0.05);
-  return (
-    <div className="pt-32 pb-24 px-[5%] bg-slate-50 min-h-screen">
-      <div className="max-w-6xl mx-auto">
-        <Label>Our Work</Label>
-        <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-8">Case Studies</h1>
-        <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mb-16">Real campaigns, real brands, real numbers — how we help Indian D2C brands grow.</p>
-        
-        <div ref={ref as any} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {CASE_STUDIES.map((w, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1 }}
-              className="p-10 rounded-3xl bg-white border border-slate-100 hover:shadow-2xl transition-all group"
-              style={{ backgroundColor: w.bg + "44" }}
-            >
-              <span className="inline-block px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6" style={{ backgroundColor: w.bg, color: w.col }}>{w.cat}</span>
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">{w.brand}</h3>
-              <div className="text-5xl font-extrabold mb-4" style={{ color: w.col }}>{w.result}</div>
-              <p className="text-sm text-slate-600 leading-relaxed mb-8">{w.sub}</p>
-              <button className="text-sm font-bold flex items-center gap-2" style={{ color: w.col }} onClick={() => setPage("contact")}>
-                View Full Case Study <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CreatorsPage({ setPage }: { setPage: (p: string) => void }) {
-  const [ref, inView] = useInView(0.05);
+function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
+  const [heroRef, heroInView] = useInView(0);
+  const [netRef, netInView] = useInView(0.05);
   const [sent, setSent] = useState(false);
+
+  const categories = [
+    { t: "Beauty & Fashion", d: "150+ Creators", ic: "💄", col: "#C42D5A", bg: "#FFE4EC" },
+    { t: "Tech & Gadgets", d: "80+ Creators", ic: "📱", col: "#0A72B8", bg: "#E4F5FF" },
+    { t: "Food & Lifestyle", d: "120+ Creators", ic: "🍕", col: "#B85C00", bg: "#FFF3E0" },
+    { t: "Fitness & Health", d: "95+ Creators", ic: "💪", col: "#1B7A3A", bg: "#E8F5E9" },
+    { t: "Travel & Decor", d: "60+ Creators", ic: "✈️", col: "#00838F", bg: "#E0F7FA" },
+    { t: "Gaming & Entertainment", d: "110+ Creators", ic: "🎮", col: "#7C3AED", bg: "#F3E8FF" },
+  ];
+
   return (
-    <div className="pt-32 pb-24 px-[5%] bg-white min-h-screen">
-      <div className="max-w-6xl mx-auto">
-        <Label>Creator Network</Label>
-        <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-8">500+ Verified Creators.<br /><span className="text-brand">Hand-picked. Brand-safe.</span></h1>
-        <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mb-16">Every creator is manually vetted on 30+ parameters — audience quality, engagement rate, brand safety and niche relevance.</p>
-        
-        <div ref={ref as any} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
-          {CREATORS.map((c, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1 }}
-              className="p-8 rounded-2xl border border-slate-100 bg-white hover:shadow-xl transition-all flex flex-col gap-6"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center font-extrabold text-xl shrink-0" style={{ backgroundColor: c.bg, color: c.tc }}>
-                  {c.name.split(" ").map(n => n[0]).join("")}
-                </div>
-                <div>
-                  <div className="font-bold text-slate-900 text-lg">{c.name}</div>
-                  <div className="text-sm font-bold" style={{ color: c.tc }}>{c.niche}</div>
-                </div>
-              </div>
-              <div className="flex justify-between items-center pt-6 border-t border-slate-50">
-                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{c.handle}</div>
-                <div className="text-sm font-extrabold text-slate-900">{c.flw}</div>
-              </div>
-            </motion.div>
+    <div className="min-h-screen bg-white">
+      {/* HERO */}
+      <section ref={heroRef as any} className="pt-32 pb-24 px-[5%] bg-slate-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "40px 40px" }} />
+        <div className="max-w-6xl mx-auto relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            className="mb-8"
+          >
+            <Label>Influencer Marketing Agency</Label>
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]"
+          >
+            India's Largest Network of <br />
+            <span className="text-brand">Vetted Influencers.</span>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed"
+          >
+            We bridge the gap between brands and creators. Data-driven campaigns that deliver massive reach and measurable ROI.
+          </motion.p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            className="flex flex-wrap justify-center gap-4"
+          >
+            <button className="px-10 py-5 rounded-xl bg-brand text-white font-bold text-lg hover:bg-brand-dark shadow-2xl shadow-brand/20 transition-all" onClick={() => setPage("contact")}>Launch a Campaign</button>
+            <button className="px-10 py-5 rounded-xl bg-white/10 text-white font-bold text-lg border border-white/20 hover:bg-white/20 transition-all" onClick={() => setPage("contact")}>Get Free Strategy</button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* STATS */}
+      <section className="py-12 bg-brand">
+        <div className="max-w-6xl mx-auto px-[5%] grid grid-cols-2 lg:grid-cols-4 gap-8">
+          {[
+            { n: "50,000+", l: "Influencers" },
+            { n: "1B+", l: "Monthly Reach" },
+            { n: "500+", l: "Brands Scaled" },
+            { n: "10,000+", l: "Campaigns" }
+          ].map((s, i) => (
+            <div key={i} className="text-center text-white">
+              <div className="text-3xl md:text-5xl font-extrabold mb-1">{s.n}</div>
+              <div className="text-xs font-bold text-white/60 uppercase tracking-widest">{s.l}</div>
+            </div>
           ))}
         </div>
+      </section>
 
-        <div className="bg-slate-900 rounded-3xl p-10 md:p-16 text-white relative overflow-hidden">
-          <div className="absolute right-0 top-0 w-1/3 h-full bg-brand/10 -skew-x-12 translate-x-1/2" />
+      {/* CATEGORIES */}
+      <section ref={netRef as any} className="py-24 px-[5%] bg-slate-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <Label>Our Network</Label>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Creators for Every Niche</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {categories.map((c, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={netInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ delay: i * 0.1 }}
+                className="p-8 rounded-3xl bg-white border border-slate-100 hover:shadow-2xl transition-all group"
+              >
+                <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-6 transition-transform group-hover:scale-110" style={{ backgroundColor: c.bg }}>
+                  {c.ic}
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">{c.t}</h3>
+                <p className="text-sm font-bold mb-4" style={{ color: c.col }}>{c.d}</p>
+                <button className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2 group-hover:text-brand transition-colors">
+                  Explore Niche <ArrowRight className="w-3 h-3" />
+                </button>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS */}
+      <section className="py-24 px-[5%] bg-white">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div>
+            <Label>How it Works</Label>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-8">End-to-End <span className="text-brand">Campaign Management.</span></h2>
+            <div className="flex flex-col gap-10">
+              {[
+                { t: "Discovery & Briefing", d: "We understand your brand goals and create a custom campaign brief that resonates with creators." },
+                { t: "Influencer Matchmaking", d: "Our AI-powered tool selects the best influencers based on reach, engagement, and audience demographics." },
+                { t: "Execution & Monitoring", d: "We handle all communication, content approvals, and live tracking of every post." },
+                { t: "Reporting & Insights", d: "Detailed performance reports showing reach, engagement, and conversion metrics." }
+              ].map((s, i) => (
+                <div key={i} className="flex gap-6">
+                  <div className="w-12 h-12 rounded-full bg-brand text-white flex items-center justify-center font-bold shrink-0">{i + 1}</div>
+                  <div>
+                    <h4 className="text-xl font-bold text-slate-900 mb-2">{s.t}</h4>
+                    <p className="text-slate-500 leading-relaxed">{s.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative">
+            <div className="bg-slate-100 rounded-3xl aspect-square overflow-hidden relative">
+              <img src="https://picsum.photos/seed/influencer/800/800" alt="Influencer Marketing" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <div className="absolute inset-0 bg-brand/10" />
+            </div>
+            <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-2xl shadow-2xl border border-slate-100 max-w-[280px]">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"><BarChart3 className="w-6 h-6" /></div>
+                <div>
+                  <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Campaign ROI</div>
+                  <div className="text-2xl font-extrabold text-slate-900">4.8x</div>
+                </div>
+              </div>
+              <p className="text-xs text-slate-500 leading-relaxed">Average return on ad spend for our influencer-led campaigns.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* JOIN AS INFLUENCER */}
+      <section className="py-24 px-[5%] bg-slate-900 text-white">
+        <div className="max-w-6xl mx-auto bg-brand rounded-3xl p-10 md:p-20 relative overflow-hidden">
+          <div className="absolute right-0 top-0 w-1/2 h-full bg-white/5 -skew-x-12 translate-x-1/4" />
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <Label>Join Us</Label>
-              <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Are You a Creator? <span className="text-brand">Get Paid to Create.</span></h2>
-              <p className="text-lg text-slate-400 leading-relaxed mb-8">Join India's fastest-growing UGC creator network. Get matched with top D2C brands and earn for content you love creating.</p>
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Are You an Influencer? <br /><span className="text-white/80">Join Our Network.</span></h2>
+              <p className="text-lg text-white/70 mb-8 max-w-md">Get exclusive access to top brands, transparent payments, and dedicated support to grow your personal brand.</p>
               <div className="flex flex-col gap-4">
-                {[["💰", "Fair, transparent pay per video"], ["🎯", "Brands matched to your niche"], ["🛡️", "Hassle-free contracts — we handle it"]].map(([ic, t], i) => (
-                  <div key={i} className="flex gap-4 items-center">
-                    <span className="text-2xl">{ic}</span>
-                    <span className="text-slate-300 font-medium">{t}</span>
+                {["Direct Brand Deals", "Timely Payments", "Growth Support"].map((f, i) => (
+                  <div key={i} className="flex gap-3 items-center">
+                    <CheckCircle2 className="w-5 h-5 text-white" />
+                    <span className="font-bold">{f}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
+            <div className="bg-white rounded-2xl p-8 text-slate-900 shadow-2xl">
               {sent ? (
                 <div className="text-center py-8">
-                  <CheckCircle2 className="w-16 h-16 text-brand mx-auto mb-4" />
-                  <h3 className="text-xl font-bold mb-2">Application Sent!</h3>
-                  <p className="text-slate-400">We'll review your profile within 48 hours.</p>
+                  <CheckCircle2 className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold mb-2">Application Sent!</h3>
+                  <p className="text-slate-500">We'll review your profile and reach out soon.</p>
                 </div>
               ) : (
                 <div className="flex flex-col gap-4">
-                  <input className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-brand" placeholder="Your Name *" />
-                  <input className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-brand" placeholder="Email Address *" />
-                  <input className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-brand" placeholder="Instagram Handle" />
-                  <button className="w-full py-4 rounded-xl bg-brand text-white font-bold hover:bg-brand-dark transition-all mt-4" onClick={() => setSent(true)}>Submit Application</button>
+                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" placeholder="Full Name *" />
+                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" placeholder="Email Address *" />
+                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" placeholder="Instagram/YouTube Link *" />
+                  <button className="w-full py-4 rounded-xl bg-slate-900 text-white font-bold hover:bg-black transition-all mt-4" onClick={() => setSent(true)}>Apply to Join</button>
                 </div>
               )}
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <CTABand setPage={setPage} />
     </div>
   );
 }
@@ -910,7 +1012,7 @@ function CTABand({ setPage }: { setPage: (p: string) => void }) {
         
         <div className="flex flex-wrap justify-center gap-4">
           <button className="px-10 py-5 rounded-xl bg-white text-brand font-bold text-lg hover:bg-brand-muted shadow-2xl transition-all" onClick={() => setPage("contact")}>Book Free Strategy Call</button>
-          <button className="px-10 py-5 rounded-xl bg-white/10 text-white font-bold text-lg border border-white/20 hover:bg-white/20 transition-all" onClick={() => setPage("creators")}>Join as a Creator</button>
+          <button className="px-10 py-5 rounded-xl bg-white/10 text-white font-bold text-lg border border-white/20 hover:bg-white/20 transition-all" onClick={() => setPage("influencer")}>Join as an Influencer</button>
         </div>
       </div>
     </section>
@@ -998,8 +1100,7 @@ export default function App() {
     switch (page) {
       case "home": return <Home setPage={setPage} />;
       case "contact": return <ContactPage />;
-      case "work": return <WorkPage setPage={setPage} />;
-      case "creators": return <CreatorsPage setPage={setPage} />;
+      case "influencer": return <InfluencerPage setPage={setPage} />;
       default: return <Home setPage={setPage} />;
     }
   };
