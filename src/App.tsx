@@ -36,7 +36,7 @@ const G3 = "#C2C2D6"; // Light Gray
 const G1 = "#F4F4FA"; // Background Gray
 
 const CLIENTS = [
-  "Mahindra", 
+  "Tech Mahindra", 
   "Sovereign Solutions Corp", 
   "Stone DesignWorks", 
   "Oodlebit", 
@@ -66,7 +66,7 @@ const STATS = [{ n: "500+", l: "Verified Creators" }, { n: "1B+", l: "Campaign V
 const TESTIMONIALS = [
   { 
     name: "Project Manager", 
-    role: "Mahindra", 
+    role: "Tech Mahindra", 
     text: "Codism's technical expertise and commitment to quality were evident throughout our digital transformation journey. They delivered a robust solution that exceeded our expectations.", 
     avatar: "M", 
     col: "#E31837"
@@ -86,19 +86,22 @@ const TESTIMONIALS = [
     col: "#7C3AED"
   },
   { 
-    name: "CTO", 
-    role: "Oodlebit", 
-    text: "Their development process is transparent and efficient. They helped us launch our platform ahead of schedule with zero major bugs.", 
-    avatar: "O", 
+    name: "Operations Director", 
+    role: "Onsite Storage Solutions", 
+    text: "Codism built a custom inventory and rental management system that transformed our business. Their technical depth and ability to solve complex logistics challenges are unmatched.", 
+    avatar: "OSS", 
     col: "#F97316"
   },
 ];
 
 const CASE_STUDIES = [
-  { brand: "DermGlow India", cat: "Skincare D2C", result: "5.2x ROAS", sub: "UGC Testimonials + Meta Ads — 60 days", col: B, bg: "#EBF2FF" },
-  { brand: "FitCore", cat: "Health & Fitness", result: "3.1x CVR", sub: "Creator Reels + Google Performance Max", col: "#7C3AED", bg: "#F3E8FF" },
-  { brand: "UrbanNest", cat: "Home Decor", result: "Rs 2.4Cr Q1", sub: "Influencer Campaigns + Performance Ads", col: "#F97316", bg: "#FFF4ED" },
-  { brand: "SipFresh", cat: "Beverage D2C", result: "400% Growth", sub: "Lifestyle UGC + Meta Scale Campaigns", col: "#059669", bg: "#ECFDF5" },
+  { brand: "Tech Mahindra", cat: "Enterprise Solutions", result: "30% Efficiency Gain", sub: "Digital Transformation & Staff Augmentation", col: B, bg: "#EBF2FF" },
+  { brand: "Sovereign Solutions", cat: "Custom Software", result: "Scalable Architecture", sub: "End-to-End IT Consulting & Development", col: "#7C3AED", bg: "#F3E8FF" },
+  { brand: "Oodlebit", cat: "Fintech / Crypto", result: "Secure Exchange", sub: "Cryptocurrency Trading Platform Development", col: "#F97316", bg: "#FFF4ED" },
+  { brand: "Stone DesignWorks", cat: "UI/UX & Web", result: "Modern Interface", sub: "Creative Design & Frontend Engineering", col: "#059669", bg: "#ECFDF5" },
+  { brand: "ReadySetBoom", cat: "Digital Marketing", result: "4x ROAS", sub: "Performance Strategy & Campaign Management", col: "#0EA5E9", bg: "#E0F2FE" },
+  { brand: "Sunset BBQ Grill", cat: "E-commerce", result: "40% Sales Boost", sub: "Magento to Shopify Migration & SEO", col: "#DC2626", bg: "#FEF2F2" },
+  { brand: "Cross Point Design", cat: "Web Development", result: "Responsive Design", sub: "Custom Web Solutions for Creative Agencies", col: "#0D9488", bg: "#F0FDFA" },
 ];
 
 const PROCESS = [
@@ -267,13 +270,10 @@ function Navbar({ page, setPage, scrolled }: { page: string, setPage: (p: string
             )}
           </AnimatePresence>
         </div>
-        <button className={`text-sm font-semibold transition-colors ${page === "influencer" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => setPage("influencer")}>Influencer</button>
         <button className={`text-sm font-semibold transition-colors ${page === "contact" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => setPage("contact")}>Contact</button>
       </div>
 
       <div className="flex gap-3 items-center">
-        <button className="hidden sm:inline-flex px-5 py-2 rounded-lg border-2 border-brand text-brand font-bold text-xs hover:bg-brand-light transition-all" onClick={() => setPage("influencer")}>For Influencers</button>
-        <button className="px-5 py-2 rounded-lg bg-brand text-white font-bold text-xs hover:bg-brand-dark shadow-lg shadow-brand/20 transition-all" onClick={() => setPage("contact")}>Free Audit</button>
         <button className="md:hidden text-slate-900" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X /> : <Menu />}
         </button>
@@ -293,7 +293,7 @@ function Navbar({ page, setPage, scrolled }: { page: string, setPage: (p: string
               <button onClick={() => setIsOpen(false)}><X className="text-slate-900" /></button>
             </div>
             <div className="flex flex-col gap-4 mt-8">
-              {["Home", "Influencer", "Contact"].map(item => (
+              {["Home", "Contact"].map(item => (
                 <button 
                   key={item} 
                   className="text-2xl font-bold text-slate-900 text-left"
@@ -340,8 +340,8 @@ function Foot({ setPage }: { setPage: (p: string) => void }) {
         </div>
         {[
           { t: "Services", ls: [{ l: "UGC Production", p: "svc-ugc" }, { l: "Influencer Marketing", p: "svc-influencer" }, { l: "Social Media Ads", p: "svc-social-ads" }, { l: "Performance Marketing", p: "svc-performance" }, { l: "AEO Services", p: "svc-aeo" }, { l: "Design & Dev", p: "svc-design" }] },
-          { t: "Company", ls: [{ l: "About Us", p: "about" }, { l: "Influencer", p: "influencer" }, { l: "Blog", p: "blog" }, { l: "Contact", p: "contact" }] },
-          { t: "Contact", ls: [{ l: "hello@brandpropelstudio.in", p: "" }, { l: "+91 98765 43210", p: "" }, { l: "Mumbai, India", p: "" }, { l: "Bangalore, India", p: "" }] },
+          { t: "Company", ls: [{ l: "About Us", p: "about" }, { l: "Blog", p: "blog" }, { l: "Contact", p: "contact" }] },
+          { t: "Contact", ls: [{ l: "hello@brandpropelstudio.in", p: "" }, { l: "+91 98765 43210", p: "" }, { l: "Pune, India", p: "" }] },
         ].map((col, i) => (
           <div key={i}>
             <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-6">{col.t}</div>
@@ -375,9 +375,9 @@ function Foot({ setPage }: { setPage: (p: string) => void }) {
 
 function ClientLogos() {
   return (
-    <section className="py-24 px-[5%] bg-white border-y border-slate-100">
+    <section className="py-10 px-[5%] bg-white border-y border-slate-100">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <Label>Trusted By Global Leaders</Label>
           <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Our Prestigious Clients</h2>
         </div>
@@ -400,9 +400,9 @@ function ClientLogos() {
 function Testimonials() {
   const [ref, inView] = useInView(0.05);
   return (
-    <section ref={ref as any} className="py-24 px-[5%] bg-slate-50">
+    <section ref={ref as any} className="py-10 px-[5%] bg-slate-50">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <Label>Client Success Stories</Label>
           <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Verified Reviews from Clutch</h2>
           <div className="flex items-center justify-center gap-2 text-brand font-bold">
@@ -557,8 +557,8 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       <ClientLogos />
 
       {/* SERVICES */}
-      <section ref={svcRef as any} className="py-24 px-[5%] bg-white">
-        <div className="text-center mb-16">
+      <section ref={svcRef as any} className="py-10 px-[5%] bg-white">
+        <div className="text-center mb-10">
           <Label>What We Do</Label>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -601,8 +601,8 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* CASE STUDIES */}
-      <section ref={workRef as any} className="py-24 px-[5%] bg-slate-50">
-        <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+      <section ref={workRef as any} className="py-10 px-[5%] bg-slate-50">
+        <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-10">
           <div>
             <Label>Our Work</Label>
             <motion.h2 
@@ -635,10 +635,10 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* PROCESS */}
-      <section ref={processRef as any} className="py-24 px-[5%] bg-slate-900 text-white overflow-hidden relative">
+      <section ref={processRef as any} className="py-10 px-[5%] bg-slate-900 text-white overflow-hidden relative">
         <div className="absolute left-[-10%] bottom-[-10%] w-[40%] aspect-square rounded-full bg-brand/10 blur-[120px]" />
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
           <div>
             <Label>How We Work</Label>
             <motion.h2 
@@ -681,55 +681,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
         </div>
       </section>
 
-      {/* PRICING */}
-      <section ref={priceRef as any} className="py-24 px-[5%] bg-white">
-        <div className="text-center mb-16">
-          <Label>Pricing</Label>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={priceInView ? { opacity: 1, y: 0 } : {}}
-            className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900"
-          >
-            Transparent. <span className="text-brand">No Hidden Fees.</span>
-          </motion.h2>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {PRICING.map((p, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={priceInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1 }}
-              className={`rounded-3xl p-10 relative overflow-hidden flex flex-col ${p.hot ? "bg-brand text-white shadow-2xl shadow-brand/30 scale-105 z-10" : "bg-white border border-slate-100 shadow-lg shadow-slate-200/50"}`}
-            >
-              {p.hot && <div className="absolute top-6 right-6 bg-white/20 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Most Popular</div>}
-              
-              <div className={`text-xs font-bold uppercase tracking-widest mb-4 ${p.hot ? "text-white/60" : "text-brand"}`}>{p.plan}</div>
-              <div className="flex items-baseline gap-1 mb-2">
-                <span className="text-4xl font-extrabold">{p.price}</span>
-                <span className={`text-sm ${p.hot ? "text-white/60" : "text-slate-500"}`}>{p.period}</span>
-              </div>
-              <p className={`text-sm mb-8 leading-relaxed ${p.hot ? "text-white/70" : "text-slate-500"}`}>{p.desc}</p>
-              
-              <div className={`border-t mb-8 pt-8 flex-1 ${p.hot ? "border-white/10" : "border-slate-100"}`}>
-                <div className="flex flex-col gap-4">
-                  {p.features.map((f, j) => (
-                    <div key={j} className="flex gap-3 items-start text-sm">
-                      <CheckCircle2 className={`w-5 h-5 shrink-0 ${p.hot ? "text-white" : "text-brand"}`} />
-                      <span className={p.hot ? "text-white/90" : "text-slate-600"}>{f}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <button className={`w-full py-4 rounded-xl font-bold transition-all ${p.hot ? "bg-white text-brand hover:bg-brand-muted" : "bg-brand text-white hover:bg-brand-dark"}`} onClick={() => setPage("contact")}>
-                {p.cta}
-              </button>
-            </motion.div>
-          ))}
-        </div>
-      </section>
 
       {/* CTA BAND */}
       <Testimonials />
@@ -963,7 +915,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* CATEGORIES */}
-      <section ref={netRef as any} className="py-24 px-[5%] bg-slate-50">
+      <section ref={netRef as any} className="py-16 px-[5%] bg-slate-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <Label>Our Network</Label>
@@ -993,7 +945,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* PROCESS */}
-      <section className="py-24 px-[5%] bg-white">
+      <section className="py-16 px-[5%] bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div>
             <Label>How it Works</Label>
@@ -1035,7 +987,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* JOIN AS INFLUENCER */}
-      <section className="py-24 px-[5%] bg-slate-900 text-white">
+      <section className="py-16 px-[5%] bg-slate-900 text-white">
         <div className="max-w-6xl mx-auto bg-brand rounded-3xl p-10 md:p-20 relative overflow-hidden">
           <div className="absolute right-0 top-0 w-1/2 h-full bg-white/5 -skew-x-12 translate-x-1/4" />
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -1084,7 +1036,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
 
 function CTABand({ setPage }: { setPage: (p: string) => void }) {
   return (
-    <section className="py-24 px-[5%] bg-gradient-to-br from-brand to-brand-dark text-center relative overflow-hidden">
+    <section className="py-16 px-[5%] bg-gradient-to-br from-brand to-brand-dark text-center relative overflow-hidden">
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "32px 32px" }} />
       
       <div className="relative z-10">
@@ -1136,7 +1088,7 @@ function SvcPage({ svcId, setPage }: { svcId: string, setPage: (p: string) => vo
         </div>
       </section>
 
-      <section ref={ref as any} className="py-24 px-[5%] bg-white">
+      <section ref={ref as any} className="py-16 px-[5%] bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
           <div>
             <Label>What is Included</Label>
