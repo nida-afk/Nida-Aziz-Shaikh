@@ -36,18 +36,19 @@ const G3 = "#C2C2D6"; // Light Gray
 const G1 = "#F4F4FA"; // Background Gray
 
 const CLIENTS = [
-  "Tech Mahindra", 
-  "Sovereign Solutions Corp", 
-  "Stone DesignWorks", 
-  "Oodlebit", 
-  "Accessibility Ventures LLC", 
-  "ReadySetBoom", 
-  "Ameritech Data Solutions", 
-  "Sunstone BBQ Grill Outlet", 
-  "Zeta Technology Group Inc", 
-  "Greymantle's Politics and Culture", 
-  "SKJ Juris Services", 
-  "Crosspoint Designs, LLC"
+  { name: "Tech Mahindra", logo: "/texh mahindra.jpg" },
+  { name: "Sovereign Solutions Corp", logo: "/logo.png" },
+  { name: "Stone DesignWorks", logo: "/stonedesignworks.jpg" },
+  { name: "Oodlebit", logo: "/wikibit.jpg" },
+  { name: "Accessibility Ventures LLC", logo: "/accessibility venturees.jpg" },
+  { name: "ReadySetBoom", logo: "/logo.png" },
+  { name: "Ameritech Data Solutions", logo: "/ADS.jpg" },
+  { name: "Sunstone BBQ Grill Outlet", logo: "/logo.png" },
+  { name: "Zeta Technology Group Inc", logo: "/zeta technologies.jpg" },
+  { name: "Eta Technologies", logo: "/eta tehnologies.jpg" },
+  { name: "Greymantle", logo: "/greymatle.jpg" },
+  { name: "SKJ Juris Services", logo: "/skj .jpg" },
+  { name: "Crosspoint Designs, LLC", logo: "/rosspoint design.jpg" }
 ];
 
 const SVCS = [
@@ -224,7 +225,7 @@ function Ticker() {
       <div className="animate-tick whitespace-nowrap inline-block">
         {[...CLIENTS, ...CLIENTS].map((c, i) => (
           <span key={i} className="mr-12 text-xs font-bold text-white/40 uppercase tracking-widest">
-            {c}<span className="text-brand ml-12">✦</span>
+            {c.name}<span className="text-brand ml-12">✦</span>
           </span>
         ))}
       </div>
@@ -383,11 +384,18 @@ function ClientLogos() {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12">
           {CLIENTS.map((c, i) => (
-            <div key={i} className="flex items-center justify-center p-8 rounded-2xl bg-slate-50 border border-slate-100 grayscale hover:grayscale-0 transition-all hover:shadow-lg hover:bg-white group">
-              <div className="text-center">
-                <div className="text-lg font-black text-slate-400 group-hover:text-brand transition-colors tracking-tighter leading-tight uppercase italic">
-                  {c}
-                </div>
+            <div key={i} className="flex items-center justify-center p-8 rounded-2xl bg-slate-50 border border-slate-100 grayscale hover:grayscale-0 transition-all hover:shadow-lg hover:bg-white group h-32">
+              <div className="text-center w-full h-full flex items-center justify-center">
+                <img 
+                  src={c.logo} 
+                  alt={c.name} 
+                  className="max-w-full max-h-full object-contain"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement!.innerHTML = `<div class="text-lg font-black text-slate-400 group-hover:text-brand transition-colors tracking-tighter leading-tight uppercase italic">${c.name}</div>`;
+                  }}
+                />
               </div>
             </div>
           ))}
@@ -469,86 +477,119 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       <section ref={heroRef as any} className="min-h-screen flex items-center bg-gradient-to-br from-brand-light via-white to-[#F2F5FF] px-[5%] pt-24 pb-16 relative overflow-hidden">
         <div className="absolute right-[-200px] top-[5%] w-[700px] h-[700px] rounded-full bg-radial-gradient from-brand/5 to-transparent pointer-events-none" />
         
-        <div className="max-w-4xl z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="mb-6"
-          >
-            <span className="inline-flex items-center gap-2 bg-white border border-brand-muted rounded-full px-4 py-2 text-xs font-bold text-brand shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-brand animate-pulse" />
-              India's Leading UGC and Influencer Marketing Studio
-            </span>
-          </motion.div>
-
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[clamp(38px,5.5vw,72px)] font-extrabold leading-[1.05] tracking-tight text-slate-900 mb-6"
-          >
-            Content That <span className="text-brand">Connects.</span><br />
-            Ads That <span className="text-brand">Convert.</span><br />
-            <span className="text-slate-500 text-[0.85em]">Brands That Scale.</span>
-          </motion.h1>
-
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-slate-600 leading-relaxed max-w-xl mb-10"
-          >
-            We help Indian D2C brands grow through <strong>UGC video production</strong>, <strong>influencer marketing</strong>, and <strong>high-performance social ads</strong> — all under one roof.
-          </motion.p>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap gap-4 mb-12"
-          >
-            <button className="px-8 py-4 rounded-xl bg-brand text-white font-bold text-lg hover:bg-brand-dark shadow-xl shadow-brand/20 transition-all" onClick={() => setPage("contact")}>Start Scaling Today</button>
-            <button className="px-8 py-4 rounded-xl border-2 border-brand text-brand font-bold text-lg hover:bg-brand-light transition-all" onClick={() => setPage("work")}>View Case Studies</button>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-wrap gap-10"
-          >
-            {STATS.map((s, i) => (
-              <div key={i} className="border-l-4 border-brand pl-4">
-                <div className="text-2xl font-extrabold text-brand leading-none mb-1"><Counter target={s.n} /></div>
-                <div className="text-xs font-semibold text-slate-500 uppercase tracking-widest">{s.l}</div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Floating elements */}
-        <div className="hidden lg:flex absolute right-[5%] top-1/2 -translate-y-1/2 flex-col gap-6 z-10">
-          {[
-            { l: "Live Campaign", v: "DermGlow x 18 Creators", ic: <Play className="w-5 h-5" />, s: "+234% CTR", c: "text-brand" },
-            { l: "ROAS This Month", v: "5.8x", ic: <BarChart3 className="w-5 h-5" />, s: "vs 1.9x before", c: "text-emerald-600" },
-            { l: "UGC Delivered", v: "20 Videos", ic: <CheckCircle2 className="w-5 h-5" />, s: "On schedule", c: "text-purple-600" },
-          ].map((c, i) => (
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10">
+          <div className="max-w-4xl">
             <motion.div 
-              key={i}
-              initial={{ opacity: 0, x: 50 }}
-              animate={heroInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 + i * 0.2 }}
-              className="bg-white border border-slate-100 rounded-2xl p-5 min-w-[240px] shadow-xl shadow-slate-200/50"
+              initial={{ opacity: 0, y: 20 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="mb-6"
             >
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{c.l}</span>
-                <span className="text-brand">{c.ic}</span>
-              </div>
-              <div className="text-xl font-extrabold text-slate-900 mb-1">{c.v}</div>
-              <div className={`text-xs font-bold ${c.c}`}>{c.s}</div>
+              <span className="inline-flex items-center gap-2 bg-white border border-brand-muted rounded-full px-4 py-2 text-xs font-bold text-brand shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-brand animate-pulse" />
+                India's Leading UGC and Influencer Marketing Studio
+              </span>
             </motion.div>
-          ))}
+
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-[clamp(38px,5.5vw,72px)] font-extrabold leading-[1.05] tracking-tight text-slate-900 mb-6"
+            >
+              Content That <span className="text-brand">Connects.</span><br />
+              Ads That <span className="text-brand">Convert.</span><br />
+              <span className="text-slate-500 text-[0.85em]">Brands That Scale.</span>
+            </motion.h1>
+
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-lg text-slate-600 leading-relaxed max-w-xl mb-10"
+            >
+              We help Indian D2C brands grow through <strong>UGC video production</strong>, <strong>influencer marketing</strong>, and <strong>high-performance social ads</strong> — all under one roof.
+            </motion.p>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-wrap gap-4 mb-12"
+            >
+              <button className="px-8 py-4 rounded-xl bg-brand text-white font-bold text-lg hover:bg-brand-dark shadow-xl shadow-brand/20 transition-all" onClick={() => setPage("contact")}>Start Scaling Today</button>
+              <button className="px-8 py-4 rounded-xl border-2 border-brand text-brand font-bold text-lg hover:bg-brand-light transition-all" onClick={() => setPage("work")}>View Case Studies</button>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex flex-wrap gap-10"
+            >
+              {STATS.map((s, i) => (
+                <div key={i} className="border-l-4 border-brand pl-4">
+                  <div className="text-2xl font-extrabold text-brand leading-none mb-1"><Counter target={s.n} /></div>
+                  <div className="text-xs font-semibold text-slate-500 uppercase tracking-widest">{s.l}</div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={heroInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="hidden lg:block relative"
+          >
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-8 border-white">
+              <img 
+                src="https://picsum.photos/seed/marketing/800/1000" 
+                alt="Marketing Strategy" 
+                className="w-full h-auto"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            </div>
+            
+            {/* Logos under picture as requested in screenshot */}
+            <div className="mt-8 bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+              <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4 text-center">Trusted by Industry Leaders</div>
+              <div className="flex flex-wrap justify-center gap-6 grayscale opacity-60">
+                {CLIENTS.slice(0, 5).map((c, i) => (
+                  <img 
+                    key={i} 
+                    src={c.logo} 
+                    alt={c.name} 
+                    className="h-6 object-contain"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Floating stats cards */}
+            <div className="absolute -right-8 top-1/4 flex flex-col gap-4">
+              {[
+                { v: "5.8x", l: "Avg ROAS", c: "text-emerald-600" },
+                { v: "234%", l: "CTR Boost", c: "text-brand" },
+              ].map((s, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ x: 20, opacity: 0 }}
+                  animate={heroInView ? { x: 0, opacity: 1 } : {}}
+                  transition={{ delay: 0.8 + i * 0.2 }}
+                  className="bg-white p-4 rounded-xl shadow-lg border border-slate-100 min-w-[120px]"
+                >
+                  <div className={`text-xl font-black ${s.c}`}>{s.v}</div>
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{s.l}</div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
