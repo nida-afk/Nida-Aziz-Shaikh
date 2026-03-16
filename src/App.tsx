@@ -144,11 +144,41 @@ const CASE_STUDIES = [
 ];
 
 const PROCESS = [
-  { n: "01", t: "Discovery & Brand Audit", d: "We analyse your brand, product, current marketing and competitive landscape before any spending." },
-  { n: "02", t: "Strategy & Creative Blueprint", d: "Custom content formats, hook angles, creator briefs and ad structures aligned to your goals." },
-  { n: "03", t: "Execution & Production", d: "Creators shoot. Every deliverable passes our quality, compliance and brand-safety review." },
-  { n: "04", t: "Launch & Optimisation", d: "Campaigns launch with A/B tests. We monitor daily, cut losers fast and scale winners." },
-  { n: "05", t: "Reporting & Growth Review", d: "Weekly dashboards and monthly strategy reviews. Full transparency on every metric." },
+  { n: "01", t: "Brand Audit", d: "We deep-dive into your current performance, creative assets, and competitor landscape." },
+  { n: "02", t: "Creator Matching", d: "We hand-pick creators from our vetted network that perfectly align with your brand persona." },
+  { n: "03", t: "Creative Strategy", d: "Developing high-converting hooks and scripts based on proven performance data." },
+  { n: "04", t: "Production & QA", d: "End-to-end production management ensuring premium quality and brand safety." },
+  { n: "05", t: "Optimisation", d: "Continuous A/B testing of hooks and formats to maximise your ad spend ROI." }
+];
+
+const WHY_US = [
+  { 
+    title: "Performance-First DNA", 
+    desc: "We don't just make content; we engineer conversions. Every creative is backed by data from ₹50Cr+ in managed ad spend.",
+    icon: <BarChart3 className="w-6 h-6" />
+  },
+  { 
+    title: "Vetted Creator Network", 
+    desc: "Access to 500+ hand-picked Indian creators across niches, ensuring authentic storytelling for your brand.",
+    icon: <Users className="w-6 h-6" />
+  },
+  { 
+    title: "48-Hour Delivery", 
+    desc: "Speed is our superpower. From brief to final delivery, we move at the speed of social media trends.",
+    icon: <Clock className="w-6 h-6" />
+  },
+  { 
+    title: "Full-Funnel Expertise", 
+    desc: "From top-of-funnel awareness to bottom-of-funnel retargeting, we know what works at every stage.",
+    icon: <Target className="w-6 h-6" />
+  }
+];
+
+const CREATORS_LIST = [
+  { name: "Ananya S.", niche: "Beauty & Skincare", img: "https://picsum.photos/seed/creator1/400/500" },
+  { name: "Rahul M.", niche: "Tech & Gadgets", img: "https://picsum.photos/seed/creator2/400/500" },
+  { name: "Priya K.", niche: "Lifestyle & Fashion", img: "https://picsum.photos/seed/creator3/400/500" },
+  { name: "Vikram R.", niche: "Fitness & Health", img: "https://picsum.photos/seed/creator4/400/500" }
 ];
 
 const PRICING = [
@@ -235,23 +265,22 @@ function Label({ children }: { children: React.ReactNode }) {
 
 function Logo({ onClick }: { onClick?: () => void }) {
   return (
-    <div className="flex items-center gap-2.5 cursor-pointer" onClick={onClick}>
-      <div className="w-9 h-9 rounded-lg overflow-hidden flex items-center justify-center shrink-0 border border-slate-100 shadow-sm">
+    <div className="flex items-center gap-3 cursor-pointer group" onClick={onClick}>
+      <div className="relative w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center shrink-0 bg-brand shadow-lg shadow-brand/20 group-hover:scale-105 transition-transform">
         <img 
           src="https://tse1.mm.bing.net/th/id/OIP.TSdfbauVBMYaU-IJIr3oWwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" 
           alt="Brand Propel Studio" 
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
           onError={(e) => {
-            // Fallback to icon if image is missing
             e.currentTarget.style.display = 'none';
-            e.currentTarget.parentElement!.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-5c1.62-2.2 5-3 5-3"></path><path d="M12 15v5s3.03-.55 5-2c2.2-1.62 3-5 3-5"></path></svg>';
           }}
         />
+        <div className="absolute inset-0 bg-brand/10 group-hover:bg-transparent transition-colors" />
       </div>
-      <div>
-        <div className="font-extrabold text-sm text-slate-900 tracking-tight leading-none">Brand Propel Studio</div>
-        <div className="text-[9px] text-slate-500 tracking-widest uppercase font-semibold">UGC & Performance Marketing</div>
+      <div className="flex flex-col leading-none">
+        <span className="text-lg font-black tracking-tighter text-slate-900 group-hover:text-brand transition-colors">BRAND PROPEL</span>
+        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">STUDIO</span>
       </div>
     </div>
   );
@@ -313,6 +342,12 @@ function Navbar({ page, setPage, scrolled }: { page: string, setPage: (p: string
       </div>
 
       <div className="flex gap-3 items-center">
+        <button 
+          className="hidden sm:flex px-5 py-2 rounded-lg bg-brand text-white text-xs font-bold hover:bg-brand-dark transition-all shadow-lg shadow-brand/10"
+          onClick={() => setPage("contact")}
+        >
+          Book Free Audit
+        </button>
         <button className="md:hidden text-slate-900" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X /> : <Menu />}
         </button>
@@ -653,6 +688,40 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       
       <ClientLogos />
 
+      {/* WHY CHOOSE US - UNIQUE PROPOSITION */}
+      <section className="py-20 px-[5%] bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <Label>The Propel Advantage</Label>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-4">
+              Why Brands Choose Us Over <span className="text-brand">Traditional Agencies</span>
+            </h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+              We've combined the creativity of a studio with the analytical rigour of a performance agency.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {WHY_US.map((item, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-xl transition-all group"
+              >
+                <div className="w-12 h-12 rounded-xl bg-brand/10 text-brand flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  {item.icon}
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* SERVICES */}
       <section ref={svcRef as any} className="py-10 px-[5%] bg-white">
         <div className="text-center mb-10">
@@ -728,6 +797,121 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
               <p className="text-xs text-slate-500 leading-relaxed">{w.sub}</p>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* BEFORE VS AFTER */}
+      <section className="py-20 px-[5%] bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="order-2 lg:order-1">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-8 border-slate-100">
+                <div className="grid grid-cols-2">
+                  <div className="relative">
+                    <img src="https://picsum.photos/seed/before/400/600" alt="Before" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
+                    <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Before Propel</div>
+                  </div>
+                  <div className="relative">
+                    <img src="https://picsum.photos/seed/after/400/600" alt="After" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    <div className="absolute top-4 right-4 bg-brand text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">After Propel</div>
+                  </div>
+                </div>
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-slate-100 min-w-[200px]">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">ROAS Increase</span>
+                    <span className="text-emerald-500 font-bold text-sm">+180%</span>
+                  </div>
+                  <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      whileInView={{ width: "85%" }}
+                      className="h-full bg-emerald-500"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="order-1 lg:order-2">
+              <Label>The Impact</Label>
+              <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-6">
+                Stop Guessing. <br /> Start <span className="text-brand">Scaling.</span>
+              </h2>
+              <p className="text-lg text-slate-600 leading-relaxed mb-8">
+                Most agencies focus on vanity metrics. We focus on your bottom line. Our performance-first UGC strategy is designed to lower your CPA and skyrocket your ROAS.
+              </p>
+              <div className="grid grid-cols-2 gap-6 mb-10">
+                <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                  <div className="text-3xl font-black text-brand mb-1">40%</div>
+                  <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">Avg. CPA Reduction</div>
+                </div>
+                <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                  <div className="text-3xl font-black text-emerald-600 mb-1">3.5x</div>
+                  <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">Avg. CTR Uplift</div>
+                </div>
+              </div>
+              <button className="px-8 py-4 rounded-xl bg-brand text-white font-bold text-lg hover:bg-brand-dark shadow-xl shadow-brand/20 transition-all" onClick={() => setPage("contact")}>Get a Free Audit</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CREATORS SECTION */}
+      <section ref={creatorRef as any} className="py-20 px-[5%] bg-slate-50 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <Label>Our Network</Label>
+              <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-6">
+                500+ Vetted Creators <br /> Ready to <span className="text-brand">Tell Your Story</span>
+              </h2>
+              <p className="text-lg text-slate-600 leading-relaxed mb-8">
+                We don't just find influencers; we build a creator army for your brand. Every creator in our network is vetted for content quality, engagement authenticity, and brand safety.
+              </p>
+              <div className="space-y-4 mb-10">
+                {[
+                  "Niche-specific matching (Beauty, Tech, Lifestyle, etc.)",
+                  "Full rights management for ad usage",
+                  "End-to-end communication & logistics",
+                  "Performance-based creator selection"
+                ].map((text, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                    <span className="font-semibold text-slate-700">{text}</span>
+                  </div>
+                ))}
+              </div>
+              <button className="px-8 py-4 rounded-xl bg-brand text-white font-bold text-lg hover:bg-brand-dark shadow-xl shadow-brand/20 transition-all" onClick={() => setPage("contact")}>Access Our Creator List</button>
+            </div>
+
+            <div className="relative">
+              <div className="grid grid-cols-2 gap-4">
+                {CREATORS_LIST.map((c, i) => (
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.1 }}
+                    viewport={{ once: true }}
+                    className={`relative rounded-2xl overflow-hidden shadow-lg ${i % 2 === 1 ? "mt-8" : ""}`}
+                  >
+                    <img 
+                      src={c.img} 
+                      alt={c.name} 
+                      className="w-full h-64 object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4">
+                      <div className="text-white font-bold">{c.name}</div>
+                      <div className="text-white/70 text-sm">{c.niche}</div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              {/* Decorative elements */}
+              <div className="absolute -z-10 -top-10 -right-10 w-64 h-64 bg-brand/5 rounded-full blur-3xl" />
+              <div className="absolute -z-10 -bottom-10 -left-10 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl" />
+            </div>
+          </div>
         </div>
       </section>
 
