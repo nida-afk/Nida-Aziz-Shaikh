@@ -17,6 +17,7 @@ import {
   Youtube, 
   Linkedin, 
   Twitter,
+  Facebook,
   ChevronDown,
   Quote,
   Clock,
@@ -36,19 +37,56 @@ const G3 = "#C2C2D6"; // Light Gray
 const G1 = "#F4F4FA"; // Background Gray
 
 const CLIENTS = [
-  { name: "Tech Mahindra", logo: "/texh mahindra.jpg" },
-  { name: "Sovereign Solutions Corp", logo: "/logo.png" },
-  { name: "Stone DesignWorks", logo: "/stonedesignworks.jpg" },
-  { name: "Oodlebit", logo: "/wikibit.jpg" },
-  { name: "Accessibility Ventures LLC", logo: "/accessibility venturees.jpg" },
-  { name: "ReadySetBoom", logo: "/logo.png" },
-  { name: "Ameritech Data Solutions", logo: "/ADS.jpg" },
-  { name: "Sunstone BBQ Grill Outlet", logo: "/logo.png" },
-  { name: "Zeta Technology Group Inc", logo: "/zeta technologies.jpg" },
-  { name: "Eta Technologies", logo: "/eta tehnologies.jpg" },
-  { name: "Greymantle", logo: "/greymatle.jpg" },
-  { name: "SKJ Juris Services", logo: "/skj .jpg" },
-  { name: "Crosspoint Designs, LLC", logo: "/rosspoint design.jpg" }
+  { 
+    name: "Tech Mahindra", 
+    logo: "https://careers.techmahindra.com/images/TM_Logo_Header.png",
+    url: "https://www.techmahindra.com/"
+  },
+  { 
+    name: "Sovereign Solutions", 
+    logo: "https://image.slidesharecdn.com/sovereignsolutions-230901060131-9196c577/85/Sovereign-solutions-pptx-1-320.jpg",
+    url: "https://sovereignsolutions.com/"
+  },
+  { 
+    name: "Stone DesignWorks", 
+    logo: "https://tse1.mm.bing.net/th/id/OIP.q3ursjAxq56pXExIW2DijwHaD3?rs=1&pid=ImgDetMain&o=7&rm=3",
+    url: "https://stonedesignworks.com/"
+  },
+  { 
+    name: "Accessibility Ventures", 
+    logo: "https://accessibilityventures.com/wp-content/uploads/2019/06/Accessibility-Ventures-Logo-500x180.png",
+    url: "https://accessibilityventures.com/"
+  },
+  { 
+    name: "Crosspoint Designs", 
+    logo: "https://crosspointdesigns.com/wp-content/uploads/2024/07/logo.png",
+    url: "https://crosspointdesigns.com/"
+  },
+  { 
+    name: "SKJ Juris", 
+    logo: "https://cdn.dribbble.com/users/2912219/screenshots/6326030/sk.jpg",
+    url: "https://skjjuris.com/"
+  },
+  { 
+    name: "Zeta Technologies", 
+    logo: "https://cdn.bio.link/uploads/profile_pictures/2022-12-28/GJkicoeEeGbObu3TjCbToVRP2M8lQawt.png",
+    url: "https://zetatech.in/"
+  },
+  { 
+    name: "Sunstone BBQ Outlets", 
+    logo: "https://members.dlat.org/wp-content/uploads/2020/03/Sunstone-Logo-Color.png",
+    url: "https://sunstonegrills.com/"
+  },
+  { 
+    name: "Ameritech Solutions", 
+    logo: "https://ameritechds.com/wp-content/uploads/2019/03/logo-ameritech-data-solutions.png",
+    url: "https://ameritechds.com/"
+  },
+  { 
+    name: "Oodlebit", 
+    logo: "https://www.airdropsmob.com/wp-content/uploads/2018/08/oodlebit-logo.jpg",
+    url: "https://oodlebit.com/"
+  }
 ];
 
 const SVCS = [
@@ -200,7 +238,7 @@ function Logo({ onClick }: { onClick?: () => void }) {
     <div className="flex items-center gap-2.5 cursor-pointer" onClick={onClick}>
       <div className="w-9 h-9 rounded-lg overflow-hidden flex items-center justify-center shrink-0 border border-slate-100 shadow-sm">
         <img 
-          src="/logo.png" 
+          src="https://tse1.mm.bing.net/th/id/OIP.TSdfbauVBMYaU-IJIr3oWwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" 
           alt="Brand Propel Studio" 
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
@@ -332,7 +370,7 @@ function Foot({ setPage }: { setPage: (p: string) => void }) {
           <Logo onClick={() => nav("home")} />
           <p className="text-sm text-slate-400 leading-relaxed mt-6 max-w-xs">India's leading UGC and performance marketing studio built to scale D2C brands.</p>
           <div className="flex gap-3 mt-8">
-            {[Instagram, Youtube, Linkedin, Twitter].map((Icon, i) => (
+            {[Instagram, Youtube, Linkedin, Twitter, Facebook].map((Icon, i) => (
               <button key={i} className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-white/60 hover:bg-brand hover:text-white transition-all">
                 <Icon className="w-4 h-4" />
               </button>
@@ -384,7 +422,13 @@ function ClientLogos() {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12">
           {CLIENTS.map((c, i) => (
-            <div key={i} className="flex items-center justify-center p-8 rounded-2xl bg-slate-50 border border-slate-100 grayscale hover:grayscale-0 transition-all hover:shadow-lg hover:bg-white group h-32">
+            <a 
+              key={i} 
+              href={c.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center justify-center p-8 rounded-2xl bg-slate-50 border border-slate-100 grayscale hover:grayscale-0 transition-all hover:shadow-lg hover:bg-white group h-32"
+            >
               <div className="text-center w-full h-full flex items-center justify-center">
                 <img 
                   src={c.logo} 
@@ -397,7 +441,7 @@ function ClientLogos() {
                   }}
                 />
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
@@ -499,17 +543,29 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
             >
               Content That <span className="text-brand">Connects.</span><br />
               Ads That <span className="text-brand">Convert.</span><br />
-              <span className="text-slate-500 text-[0.85em]">Brands That Scale.</span>
+              <span className="text-slate-500">Brands That Scale.</span>
             </motion.h1>
 
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg text-slate-600 leading-relaxed max-w-xl mb-10"
+              className="text-lg text-slate-600 leading-relaxed max-w-xl mb-6"
             >
               We help Indian D2C brands grow through <strong>UGC video production</strong>, <strong>influencer marketing</strong>, and <strong>high-performance social ads</strong> — all under one roof.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="flex items-center gap-2 mb-10"
+            >
+              <div className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
+                <Facebook className="w-4 h-4 text-[#1877F2] fill-[#1877F2]" />
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Meta Business Partner</span>
+              </div>
+            </motion.div>
 
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -741,7 +797,7 @@ function ContactPage() {
     if (!form.name || !form.email) return;
     setLoading(true);
     try {
-      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      const response = await window.fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -855,7 +911,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
     if (!form.name || !form.email || !form.link) return;
     setLoading(true);
     try {
-      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      const response = await window.fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
