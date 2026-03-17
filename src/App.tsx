@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { GoogleGenAI } from "@google/genai";
 import { 
   Rocket, 
   Play, 
@@ -49,12 +50,12 @@ const CLIENTS = [
   },
   { 
     name: "Stone DesignWorks", 
-    logo: "https://tse1.mm.bing.net/th/id/OIP.q3ursjAxq56pXExIW2DijwHaD3?rs=1&pid=ImgDetMain&o=7&rm=3",
+    logo: "https://www.stonedesignworks.com/we/we.dll/Pic?UN=94570&F=C&T=801&Age=1434997231",
     url: "https://stonedesignworks.com/"
   },
   { 
     name: "Accessibility Ventures", 
-    logo: "https://accessibilityventures.com/wp-content/uploads/2019/06/Accessibility-Ventures-Logo-500x180.png",
+    logo: "https://th.bing.com/th/id/OIP.ZbLIkH3d5ksjkEdM4LKxrgAAAA?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
     url: "https://accessibilityventures.com/"
   },
   { 
@@ -64,12 +65,12 @@ const CLIENTS = [
   },
   { 
     name: "SKJ Juris", 
-    logo: "https://cdn.dribbble.com/users/2912219/screenshots/6326030/sk.jpg",
+    logo: "https://www.skjjuris.com/wp-content/uploads/2022/12/skj-juris-logo-r-1.jpg",
     url: "https://skjjuris.com/"
   },
   { 
     name: "Zeta Technologies", 
-    logo: "https://cdn.bio.link/uploads/profile_pictures/2022-12-28/GJkicoeEeGbObu3TjCbToVRP2M8lQawt.png",
+    logo: "https://th.bing.com/th/id/OIP._v9PLmTQe3i-YHH-01NRewHaCV?w=350&h=110&c=7&r=0&o=7&dpr=1.7&pid=1.7&rm=3",
     url: "https://zetatech.in/"
   },
   { 
@@ -90,13 +91,13 @@ const CLIENTS = [
 ];
 
 const SVCS = [
-  { id: "ugc", icon: <Play className="w-6 h-6" />, title: "UGC Content Production", short: "Authentic creator videos that convert at every funnel stage.", color: B, bg: "#EBF2FF", tagline: "Real People. Real Content. Real Conversions.", features: ["Unboxing & Review Videos", "Testimonials & Social Proof", "Tutorial & Demo Reels", "Lifestyle Content", "UGC for Meta, Google & YouTube", "Hook Testing & Multi-Variant"], results: [{ n: "3-5x", l: "Higher CTR" }, { n: "67%", l: "Lower CPA" }, { n: "48hr", l: "Avg delivery" }] },
+  { id: "ugc", icon: <Play className="w-6 h-6" />, title: "UGC Content", short: "Authentic creator videos that convert at every funnel stage.", color: B, bg: "#EBF2FF", tagline: "Real People. Real Content. Real Conversions.", features: ["Unboxing & Review Videos", "Testimonials & Social Proof", "Tutorial & Demo Reels", "Lifestyle Content", "UGC for Meta, Google & YouTube", "Hook Testing & Multi-Variant"], results: [{ n: "3-5x", l: "Higher CTR" }, { n: "67%", l: "Lower CPA" }, { n: "48hr", l: "Avg delivery" }] },
   { id: "influencer", icon: <Star className="w-6 h-6" />, title: "Influencer Marketing", short: "End-to-end influencer campaigns from nano to celebrity.", color: "#7C3AED", bg: "#F3E8FF", tagline: "The Right Voice. The Right Audience.", features: ["Nano, Micro & Macro Campaigns", "Celebrity Tie-ups", "Instagram Reels & Stories", "YouTube Integrations", "Brand Safety Vetting", "Full Campaign Management"], results: [{ n: "500+", l: "Vetted influencers" }, { n: "1B+", l: "Combined reach" }, { n: "4.2%", l: "Avg engagement" }] },
   { id: "social-ads", icon: <Megaphone className="w-6 h-6" />, title: "Social Media Ads", short: "Paid social on Meta, Instagram & YouTube built on data.", color: "#F97316", bg: "#FFF4ED", tagline: "Scroll-Stopping Ads. Measurable ROI.", features: ["Meta & Instagram Ads", "YouTube & Google Display", "Retargeting Campaigns", "Creative A/B Testing", "Audience Segmentation", "Daily Budget Optimisation"], results: [{ n: "4.8x", l: "Average ROAS" }, { n: "40%", l: "Lower CPM" }, { n: "2x", l: "Conversion uplift" }] },
   { id: "performance", icon: <Target className="w-6 h-6" />, title: "Performance Marketing", short: "Full-funnel strategies engineered around ROAS and CPA.", color: "#059669", bg: "#ECFDF5", tagline: "Every Rupee Accountable.", features: ["Google Search & Shopping", "Meta Performance Campaigns", "YouTube Video Funnels", "Landing Page CRO", "ROAS & CPA Optimisation", "Weekly Performance Reviews"], results: [{ n: "120+", l: "Brands scaled" }, { n: "₹50Cr+", l: "Ad spend managed" }, { n: "3.8x", l: "Avg ROAS" }] },
   { id: "content", icon: <PenTool className="w-6 h-6" />, title: "Content Marketing", short: "Blogs, copy and brand storytelling that build authority.", color: "#0EA5E9", bg: "#E0F2FE", tagline: "Content That Ranks and Converts.", features: ["SEO Blog Writing", "Social Media Copywriting", "Email Campaigns", "Case Studies & Whitepapers", "Brand Storytelling", "Content Calendar Strategy"], results: [{ n: "3x", l: "Organic traffic growth" }, { n: "60%", l: "More time-on-site" }, { n: "45%", l: "Higher email opens" }] },
   { id: "seo", icon: <Search className="w-6 h-6" />, title: "SEO", short: "Technical SEO and link building that improves rankings.", color: "#DC2626", bg: "#FEF2F2", tagline: "Rank Higher. Grow Organically.", features: ["Full Technical Audit", "Keyword Research", "On-Page Optimisation", "Off-Page & Link Building", "Local SEO", "Monthly Ranking Reports"], results: [{ n: "2.5x", l: "Organic traffic" }, { n: "Top 5", l: "Keyword rankings" }, { n: "35%", l: "More organic leads" }] },
-  { id: "aeo", icon: <Search className="w-6 h-6" />, title: "AEO Services", short: "Optimising your brand for AI search engines like Perplexity & ChatGPT.", color: "#0D9488", bg: "#F0FDFA", tagline: "Be the Answer AI Gives.", features: ["AI Visibility Audit", "Answer Engine Optimisation", "Structured Data Markup", "Conversational Keyword Research", "Brand Authority Building", "AI Search Tracking"], results: [{ n: "85%", l: "AI Citation Rate" }, { n: "2x", l: "Brand Mentions" }, { n: "Top 3", l: "AI Recommendations" }] },
+  { id: "aeo", icon: <Search className="w-6 h-6" />, title: "AEO", short: "Optimising your brand for AI search engines like Perplexity & ChatGPT.", color: "#0D9488", bg: "#F0FDFA", tagline: "Be the Answer AI Gives.", features: ["AI Visibility Audit", "Answer Engine Optimisation", "Structured Data Markup", "Conversational Keyword Research", "Brand Authority Building", "AI Search Tracking"], results: [{ n: "85%", l: "AI Citation Rate" }, { n: "2x", l: "Brand Mentions" }, { n: "Top 3", l: "AI Recommendations" }] },
   { id: "design", icon: <Code className="w-6 h-6" />, title: "Design & Development", short: "High-converting landing pages and D2C storefronts.", color: "#4F46E5", bg: "#EEF2FF", tagline: "Built for Speed. Designed for Sales.", features: ["Custom Shopify Stores", "High-CVR Landing Pages", "UI/UX Design", "Web Performance Tuning", "Mobile-First Development", "Conversion Rate Optimisation"], results: [{ n: "45%", l: "CVR Improvement" }, { n: "90+", l: "PageSpeed Score" }, { n: "3x", l: "Faster Load Time" }] },
 ];
 
@@ -300,18 +301,18 @@ function Ticker() {
   );
 }
 
-function Navbar({ page, setPage, scrolled }: { page: string, setPage: (p: string) => void, scrolled: boolean }) {
+function Navbar({ page, handleNav, scrolled }: { page: string, handleNav: (p: string, s?: string) => void, scrolled: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const [drop, setDrop] = useState(false);
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[500] h-16 px-[5%] flex items-center justify-between transition-all duration-300 ${scrolled ? "bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm" : "bg-transparent"}`}>
-      <Logo onClick={() => setPage("home")} />
+      <Logo onClick={() => handleNav("home", "home")} />
       
       <div className="hidden md:flex gap-8 items-center">
-        <button className={`text-sm font-semibold transition-colors ${page === "home" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => setPage("home")}>Home</button>
+        <button className={`text-sm font-semibold transition-colors ${page === "home" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => handleNav("home", "home")}>Home</button>
         <div className="relative" onMouseEnter={() => setDrop(true)} onMouseLeave={() => setDrop(false)}>
-          <button className={`text-sm font-semibold flex items-center gap-1 transition-colors ${page.startsWith("svc") ? "text-brand" : "text-slate-600 hover:text-brand"}`}>
+          <button className={`text-sm font-semibold flex items-center gap-1 transition-colors ${page.startsWith("svc") ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => handleNav("home", "services")}>
             Services <ChevronDown className="w-3 h-3" />
           </button>
           <AnimatePresence>
@@ -322,29 +323,64 @@ function Navbar({ page, setPage, scrolled }: { page: string, setPage: (p: string
                 exit={{ opacity: 0, y: 10 }}
                 className="absolute top-full left-[-10px] pt-2 z-[600]"
               >
-                <div className="bg-white border border-slate-100 rounded-xl py-2 shadow-xl min-w-[220px]">
-                  {SVCS.map(s => (
-                    <button 
-                      key={s.id} 
-                      onClick={() => { setPage("svc-" + s.id); setDrop(false); }}
-                      className="w-full text-left px-4 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand flex items-center gap-3 transition-colors"
-                    >
-                      <span className="text-brand opacity-80">{s.icon}</span>
-                      {s.title}
-                    </button>
-                  ))}
+                <div className="bg-white border border-slate-100 rounded-xl py-3 shadow-xl min-w-[260px]">
+                  {[
+                    { group: "Marketing", items: ["influencer", "performance", "content"] },
+                    { group: "SEO & AEO", items: ["seo", "aeo"] },
+                    { id: "ugc" },
+                    { id: "social-ads" },
+                    { id: "design" }
+                  ].map((item, idx) => {
+                    if ('group' in item) {
+                      return (
+                        <div key={idx} className="px-4 py-2">
+                          <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">{item.group}</div>
+                          <div className="flex flex-col gap-0.5">
+                            {item.items.map(id => {
+                              const s = SVCS.find(x => x.id === id);
+                              if (!s) return null;
+                              return (
+                                <button 
+                                  key={s.id} 
+                                  onClick={() => { handleNav("svc-" + s.id); setDrop(false); }}
+                                  className="w-full text-left px-2 py-1.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand flex items-center gap-3 rounded-lg transition-colors"
+                                >
+                                  <span className="text-brand opacity-80 scale-75">{s.icon}</span>
+                                  {s.title}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      const s = SVCS.find(x => x.id === item.id);
+                      if (!s) return null;
+                      return (
+                        <button 
+                          key={s.id} 
+                          onClick={() => { handleNav("svc-" + s.id); setDrop(false); }}
+                          className="w-full text-left px-4 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand flex items-center gap-3 transition-colors"
+                        >
+                          <span className="text-brand opacity-80">{s.icon}</span>
+                          {s.title}
+                        </button>
+                      );
+                    }
+                  })}
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-        <button className={`text-sm font-semibold transition-colors ${page === "contact" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => setPage("contact")}>Contact</button>
+        <button className={`text-sm font-semibold transition-colors ${page === "contact" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => handleNav("contact")}>Contact</button>
+        <button className={`text-sm font-semibold transition-colors ${page === "influencer" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => handleNav("influencer")}>Influencer</button>
       </div>
 
       <div className="flex gap-3 items-center">
         <button 
           className="hidden sm:flex px-5 py-2 rounded-lg bg-brand text-white text-xs font-bold hover:bg-brand-dark transition-all shadow-lg shadow-brand/10"
-          onClick={() => setPage("contact")}
+          onClick={() => handleNav("contact")}
         >
           Book Free Audit
         </button>
@@ -363,31 +399,65 @@ function Navbar({ page, setPage, scrolled }: { page: string, setPage: (p: string
             className="fixed inset-0 bg-white z-[600] p-6 flex flex-col gap-6"
           >
             <div className="flex justify-between items-center">
-              <Logo onClick={() => { setPage("home"); setIsOpen(false); }} />
+              <Logo onClick={() => { handleNav("home", "home"); setIsOpen(false); }} />
               <button onClick={() => setIsOpen(false)}><X className="text-slate-900" /></button>
             </div>
             <div className="flex flex-col gap-4 mt-8">
-              {["Home", "Contact"].map(item => (
+              {["Home", "Contact", "Influencer"].map(item => (
                 <button 
                   key={item} 
                   className="text-2xl font-bold text-slate-900 text-left"
-                  onClick={() => { setPage(item.toLowerCase()); setIsOpen(false); }}
+                  onClick={() => { handleNav(item.toLowerCase(), item.toLowerCase()); setIsOpen(false); }}
                 >
                   {item}
                 </button>
               ))}
               <div className="h-px bg-slate-100 my-2" />
               <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Services</div>
-              {SVCS.map(s => (
-                <button 
-                  key={s.id} 
-                  className="text-lg font-bold text-slate-600 text-left flex items-center gap-3"
-                  onClick={() => { setPage("svc-" + s.id); setIsOpen(false); }}
-                >
-                  <span className="text-brand">{s.icon}</span>
-                  {s.title}
-                </button>
-              ))}
+              {[
+                { group: "Marketing", items: ["influencer", "performance", "content"] },
+                { group: "SEO & AEO", items: ["seo", "aeo"] },
+                { id: "ugc" },
+                { id: "social-ads" },
+                { id: "design" }
+              ].map((item, idx) => {
+                if ('group' in item) {
+                  return (
+                    <div key={idx} className="flex flex-col gap-3 mb-2">
+                      <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-l-2 border-brand pl-3">{item.group}</div>
+                      <div className="flex flex-col gap-3 pl-3">
+                        {item.items.map(id => {
+                          const s = SVCS.find(x => x.id === id);
+                          if (!s) return null;
+                          return (
+                            <button 
+                              key={s.id} 
+                              className="text-lg font-bold text-slate-600 text-left flex items-center gap-3"
+                              onClick={() => { handleNav("svc-" + s.id); setIsOpen(false); }}
+                            >
+                              <span className="text-brand scale-90">{s.icon}</span>
+                              {s.title}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                } else {
+                  const s = SVCS.find(x => x.id === item.id);
+                  if (!s) return null;
+                  return (
+                    <button 
+                      key={s.id} 
+                      className="text-lg font-bold text-slate-600 text-left flex items-center gap-3"
+                      onClick={() => { handleNav("svc-" + s.id); setIsOpen(false); }}
+                    >
+                      <span className="text-brand">{s.icon}</span>
+                      {s.title}
+                    </button>
+                  );
+                }
+              })}
             </div>
           </motion.div>
         )}
@@ -396,13 +466,12 @@ function Navbar({ page, setPage, scrolled }: { page: string, setPage: (p: string
   );
 }
 
-function Foot({ setPage }: { setPage: (p: string) => void }) {
-  const nav = (p: string) => { setPage(p); window.scrollTo({ top: 0 }); };
+function Foot({ handleNav }: { handleNav: (p: string, s?: string) => void }) {
   return (
     <footer className="bg-slate-900 pt-16 pb-8 px-[5%]">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
         <div>
-          <Logo onClick={() => nav("home")} />
+          <Logo onClick={() => handleNav("home", "home")} />
           <p className="text-sm text-slate-400 leading-relaxed mt-6 max-w-xs">India's leading UGC and performance marketing studio built to scale D2C brands.</p>
           <div className="flex gap-3 mt-8">
             {[Instagram, Youtube, Linkedin, Twitter, Facebook].map((Icon, i) => (
@@ -413,7 +482,7 @@ function Foot({ setPage }: { setPage: (p: string) => void }) {
           </div>
         </div>
         {[
-          { t: "Services", ls: [{ l: "UGC Production", p: "svc-ugc" }, { l: "Influencer Marketing", p: "svc-influencer" }, { l: "Social Media Ads", p: "svc-social-ads" }, { l: "Performance Marketing", p: "svc-performance" }, { l: "AEO Services", p: "svc-aeo" }, { l: "Design & Dev", p: "svc-design" }] },
+          { t: "Services", ls: [{ l: "UGC Content", p: "svc-ugc" }, { l: "Influencer Marketing", p: "svc-influencer" }, { l: "Social Media Ads", p: "svc-social-ads" }, { l: "Performance Marketing", p: "svc-performance" }, { l: "AEO", p: "svc-aeo" }, { l: "Design & Development", p: "svc-design" }] },
           { t: "Company", ls: [{ l: "About Us", p: "about" }, { l: "Blog", p: "blog" }, { l: "Contact", p: "contact" }] },
           { t: "Contact", ls: [{ l: "hello@brandpropelstudio.in", p: "" }, { l: "+91 98765 43210", p: "" }, { l: "Pune, India", p: "" }] },
         ].map((col, i) => (
@@ -423,7 +492,7 @@ function Foot({ setPage }: { setPage: (p: string) => void }) {
               {col.ls.map(l => (
                 <button 
                   key={l.l} 
-                  onClick={() => l.p && nav(l.p)} 
+                  onClick={() => l.p && handleNav(l.p)} 
                   className={`text-sm text-slate-400 text-left transition-colors ${l.p ? "hover:text-white" : "cursor-default"}`}
                 >
                   {l.l}
@@ -447,6 +516,74 @@ function Foot({ setPage }: { setPage: (p: string) => void }) {
 
 // ─── PAGES ───
 
+function ClientLogoItem({ client }: any) {
+  const [imgSrc, setImgSrc] = useState(client.logo);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const generateFallback = async () => {
+    if (isGenerating) return;
+    setIsGenerating(true);
+    try {
+      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash-image',
+        contents: {
+          parts: [
+            {
+              text: `A professional, minimalist, high-quality corporate logo for a company named "${client.name}". The logo should be clean, modern, and suitable for a business website. Use a professional color palette. White background.`,
+            },
+          ],
+        },
+      });
+
+      for (const part of response.candidates[0].content.parts) {
+        if (part.inlineData) {
+          const base64EncodeString = part.inlineData.data;
+          setImgSrc(`data:image/png;base64,${base64EncodeString}`);
+          setIsGenerating(false);
+          return;
+        }
+      }
+      throw new Error("No image generated");
+    } catch (error) {
+      console.error("Error generating logo:", error);
+      setIsError(true);
+      setIsGenerating(false);
+    }
+  };
+
+  return (
+    <a 
+      href={client.url} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="flex items-center justify-center p-8 rounded-2xl bg-slate-50 border border-slate-100 grayscale hover:grayscale-0 transition-all hover:shadow-lg hover:bg-white group h-32 relative overflow-hidden"
+    >
+      <div className="text-center w-full h-full flex items-center justify-center">
+        {isGenerating ? (
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-5 h-5 border-2 border-brand border-t-transparent rounded-full animate-spin" />
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Generating Logo...</span>
+          </div>
+        ) : isError ? (
+          <div className="text-lg font-black text-slate-400 group-hover:text-brand transition-colors tracking-tighter leading-tight uppercase italic">{client.name}</div>
+        ) : (
+          <img 
+            src={imgSrc} 
+            alt={client.name} 
+            className="max-w-full max-h-full object-contain"
+            referrerPolicy="no-referrer"
+            onError={() => {
+              generateFallback();
+            }}
+          />
+        )}
+      </div>
+    </a>
+  );
+}
+
 function ClientLogos() {
   return (
     <section className="py-10 px-[5%] bg-white border-y border-slate-100">
@@ -457,26 +594,7 @@ function ClientLogos() {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12">
           {CLIENTS.map((c, i) => (
-            <a 
-              key={i} 
-              href={c.url} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center justify-center p-8 rounded-2xl bg-slate-50 border border-slate-100 grayscale hover:grayscale-0 transition-all hover:shadow-lg hover:bg-white group h-32"
-            >
-              <div className="text-center w-full h-full flex items-center justify-center">
-                <img 
-                  src={c.logo} 
-                  alt={c.name} 
-                  className="max-w-full max-h-full object-contain"
-                  referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.parentElement!.innerHTML = `<div class="text-lg font-black text-slate-400 group-hover:text-brand transition-colors tracking-tighter leading-tight uppercase italic">${c.name}</div>`;
-                  }}
-                />
-              </div>
-            </a>
+            <ClientLogoItem key={i} client={c} />
           ))}
         </div>
       </div>
@@ -535,6 +653,99 @@ function Testimonials() {
   );
 }
 
+function ROICalculator({ setPage }: { setPage: (p: string) => void }) {
+  const [spend, setSpend] = useState(100000);
+  const [aov, setAov] = useState(2500);
+  const [cvr, setCvr] = useState(2.5);
+
+  const estimatedRevenue = (spend / (spend * 0.01)) * (cvr / 100) * aov * 100; // Simplified for demo
+  // More realistic: Spend / CPC * CVR * AOV. Let's assume CPC is 20
+  const cpc = 20;
+  const clicks = spend / cpc;
+  const conversions = clicks * (cvr / 100);
+  const revenue = conversions * aov;
+  const roas = revenue / spend;
+
+  return (
+    <section className="py-20 px-[5%] bg-slate-900 text-white relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <Label>Growth Estimator</Label>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">Calculate Your <span className="text-brand">Potential ROI</span></h2>
+            <p className="text-lg text-slate-400 mb-10 leading-relaxed">See how much revenue your brand could be generating with optimized UGC and performance marketing. Adjust the sliders to see the impact.</p>
+            
+            <div className="space-y-8">
+              <div>
+                <div className="flex justify-between mb-4">
+                  <span className="font-bold text-slate-300">Monthly Ad Spend (₹)</span>
+                  <span className="font-bold text-brand">₹{spend.toLocaleString()}</span>
+                </div>
+                <input 
+                  type="range" min="10000" max="1000000" step="10000" 
+                  value={spend} onChange={(e) => setSpend(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand"
+                />
+              </div>
+              <div>
+                <div className="flex justify-between mb-4">
+                  <span className="font-bold text-slate-300">Avg. Order Value (₹)</span>
+                  <span className="font-bold text-brand">₹{aov.toLocaleString()}</span>
+                </div>
+                <input 
+                  type="range" min="500" max="10000" step="100" 
+                  value={aov} onChange={(e) => setAov(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand"
+                />
+              </div>
+              <div>
+                <div className="flex justify-between mb-4">
+                  <span className="font-bold text-slate-300">Target Conversion Rate (%)</span>
+                  <span className="font-bold text-brand">{cvr}%</span>
+                </div>
+                <input 
+                  type="range" min="0.5" max="10" step="0.1" 
+                  value={cvr} onChange={(e) => setCvr(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white/5 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl">
+            <div className="grid grid-cols-1 gap-8">
+              <div className="p-6 rounded-2xl bg-brand/10 border border-brand/20">
+                <div className="text-slate-400 text-sm font-bold uppercase tracking-widest mb-2">Estimated Monthly Revenue</div>
+                <div className="text-4xl md:text-5xl font-black text-white">₹{Math.round(revenue).toLocaleString()}</div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                  <div className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Target ROAS</div>
+                  <div className="text-2xl font-bold text-brand">{roas.toFixed(1)}x</div>
+                </div>
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                  <div className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Est. Conversions</div>
+                  <div className="text-2xl font-bold text-white">{Math.round(conversions)}</div>
+                </div>
+              </div>
+              <div className="pt-6 border-t border-white/10">
+                <p className="text-xs text-slate-500 italic">*These are estimations based on industry averages and your inputs. Actual results may vary based on creative quality and market conditions.</p>
+              </div>
+              <button 
+                className="w-full py-4 rounded-xl bg-brand text-white font-bold text-lg hover:bg-brand-dark transition-all shadow-xl shadow-brand/20"
+                onClick={() => setPage("contact")}
+              >
+                Get This Strategy Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Home({ setPage }: { setPage: (p: string) => void }) {
   const [heroRef, heroInView] = useInView(0);
   const [svcRef, svcInView] = useInView(0.05);
@@ -553,7 +764,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
   return (
     <>
       {/* HERO */}
-      <section ref={heroRef as any} className="min-h-screen flex items-center bg-gradient-to-br from-brand-light via-white to-[#F2F5FF] px-[5%] pt-24 pb-16 relative overflow-hidden">
+      <section id="home" ref={heroRef as any} className="min-h-screen flex items-center bg-gradient-to-br from-brand-light via-white to-[#F2F5FF] px-[5%] pt-24 pb-16 relative overflow-hidden">
         <div className="absolute right-[-200px] top-[5%] w-[700px] h-[700px] rounded-full bg-radial-gradient from-brand/5 to-transparent pointer-events-none" />
         
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10">
@@ -686,6 +897,8 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
 
       <Ticker />
       
+      <ROICalculator setPage={setPage} />
+      
       <ClientLogos />
 
       {/* WHY CHOOSE US - UNIQUE PROPOSITION */}
@@ -723,7 +936,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* SERVICES */}
-      <section ref={svcRef as any} className="py-10 px-[5%] bg-white">
+      <section id="services" ref={svcRef as any} className="py-10 px-[5%] bg-white">
         <div className="text-center mb-10">
           <Label>What We Do</Label>
           <motion.h2 
@@ -751,7 +964,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
               animate={svcInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.1 }}
               onClick={() => setPage("svc-" + s.id)}
-              className="group p-8 rounded-2xl border border-slate-100 bg-white hover:border-brand hover:shadow-2xl hover:shadow-brand/5 transition-all cursor-pointer"
+              className="group p-8 rounded-2xl border border-slate-100 bg-white hover:border-brand hover:shadow-2xl hover:shadow-brand/5 hover:-translate-y-2 transition-all cursor-pointer"
             >
               <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110" style={{ backgroundColor: s.bg, color: s.color }}>
                 {s.icon}
@@ -767,7 +980,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* CASE STUDIES */}
-      <section ref={workRef as any} className="py-10 px-[5%] bg-slate-50">
+      <section id="work" ref={workRef as any} className="py-10 px-[5%] bg-slate-50">
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-10">
           <div>
             <Label>Our Work</Label>
@@ -916,7 +1129,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* PROCESS */}
-      <section ref={processRef as any} className="py-10 px-[5%] bg-slate-900 text-white overflow-hidden relative">
+      <section id="process" ref={processRef as any} className="py-10 px-[5%] bg-slate-900 text-white overflow-hidden relative">
         <div className="absolute left-[-10%] bottom-[-10%] w-[40%] aspect-square rounded-full bg-brand/10 blur-[120px]" />
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
@@ -981,7 +1194,7 @@ function ContactPage() {
     if (!form.name || !form.email) return;
     setLoading(true);
     try {
-      const response = await window.fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1015,7 +1228,7 @@ function ContactPage() {
   };
 
   return (
-    <div className="pt-32 pb-24 px-[5%] bg-slate-50 min-h-screen">
+    <div id="contact" className="pt-32 pb-24 px-[5%] bg-slate-50 min-h-screen">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           <div>
@@ -1095,7 +1308,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
     if (!form.name || !form.email || !form.link) return;
     setLoading(true);
     try {
-      const response = await window.fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1137,7 +1350,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div id="influencer" className="min-h-screen bg-white">
       {/* HERO */}
       <section ref={heroRef as any} className="pt-32 pb-24 px-[5%] bg-slate-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "40px 40px" }} />
@@ -1403,12 +1616,43 @@ function SvcPage({ svcId, setPage }: { svcId: string, setPage: (p: string) => vo
 export default function App() {
   const [page, setPage] = useState("home");
   const [scrolled, setScrolled] = useState(false);
+  const [targetSection, setTargetSection] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (targetSection) {
+      const element = document.getElementById(targetSection);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+        setTargetSection(null);
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [page, targetSection]);
+
+  const handleNav = (p: string, section?: string) => {
+    if (section && page === "home") {
+      const element = document.getElementById(section);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else if (section) {
+      setTargetSection(section);
+      setPage("home");
+    } else {
+      if (page === p) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        setPage(p);
+      }
+    }
+  };
 
   const renderPage = () => {
     if (page.startsWith("svc-")) return <SvcPage svcId={page.replace("svc-", "")} setPage={setPage} />;
@@ -1422,7 +1666,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen font-sans selection:bg-brand selection:text-white">
-      <Navbar page={page} setPage={setPage} scrolled={scrolled} />
+      <Navbar page={page} handleNav={handleNav} scrolled={scrolled} />
       <main>
         <AnimatePresence mode="wait">
           <motion.div
@@ -1436,7 +1680,7 @@ export default function App() {
           </motion.div>
         </AnimatePresence>
       </main>
-      <Foot setPage={setPage} />
+      <Foot handleNav={handleNav} />
     </div>
   );
 }
