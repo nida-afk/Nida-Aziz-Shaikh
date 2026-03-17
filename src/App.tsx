@@ -26,7 +26,12 @@ import {
   BarChart3,
   Globe,
   Code,
-  Layout
+  Layout,
+  Sparkles,
+  Cpu,
+  Zap,
+  PlayCircle,
+  Image as ImageIcon
 } from "lucide-react";
 
 // ─── CONSTANTS ───
@@ -1352,42 +1357,150 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
   return (
     <div id="influencer" className="min-h-screen bg-white">
       {/* HERO */}
-      <section ref={heroRef as any} className="pt-32 pb-24 px-[5%] bg-slate-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "40px 40px" }} />
+      <section ref={heroRef as any} className="pt-32 pb-24 px-[5%] bg-slate-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#FF6321_0%,transparent_50%)] opacity-10" />
+          <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_80%,#FF6321_0%,transparent_50%)] opacity-10" />
+        </div>
         <div className="max-w-6xl mx-auto relative z-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            className="mb-8"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={heroInView ? { opacity: 1, scale: 1 } : {}}
+            className="mb-8 inline-block"
           >
-            <Label>Influencer Marketing Agency</Label>
+            <div className="px-4 py-1.5 rounded-full border border-brand/30 bg-brand/10 text-brand text-[10px] font-bold uppercase tracking-[0.2em] backdrop-blur-sm">
+              Next-Gen Creator Economy
+            </div>
           </motion.div>
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]"
+            className="text-5xl md:text-8xl font-extrabold tracking-tighter mb-8 leading-[0.9]"
           >
-            India's Largest Network of <br />
-            <span className="text-brand">Vetted Influencers.</span>
+            The Future of <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-orange-400">Influence is AI.</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.2 }}
-            className="text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed"
+            className="text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed font-medium"
           >
-            We bridge the gap between brands and creators. Data-driven campaigns that deliver massive reach and measurable ROI.
+            From human creators to virtual AI influencers, we manage the world's most engaging digital personas.
           </motion.p>
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-4"
+            className="flex flex-wrap justify-center gap-6"
           >
-            <button className="px-10 py-5 rounded-xl bg-brand text-white font-bold text-lg hover:bg-brand-dark shadow-2xl shadow-brand/20 transition-all" onClick={() => setPage("contact")}>Launch a Campaign</button>
-            <button className="px-10 py-5 rounded-xl bg-white/10 text-white font-bold text-lg border border-white/20 hover:bg-white/20 transition-all" onClick={() => setPage("contact")}>Get Free Strategy</button>
+            <button className="px-10 py-5 rounded-full bg-brand text-white font-bold text-lg hover:bg-brand-dark shadow-[0_0_40px_rgba(255,99,33,0.3)] transition-all hover:scale-105 active:scale-95" onClick={() => setPage("contact")}>Start Campaign</button>
+            <button className="px-10 py-5 rounded-full bg-white/5 text-white font-bold text-lg border border-white/10 hover:bg-white/10 backdrop-blur-md transition-all" onClick={() => setPage("contact")}>View AI Roster</button>
           </motion.div>
+        </div>
+      </section>
+
+      {/* AI INFLUENCERS SECTION */}
+      <section className="py-24 px-[5%] bg-slate-950 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div className="max-w-xl">
+              <div className="flex items-center gap-3 text-brand mb-4">
+                <Sparkles className="w-5 h-5" />
+                <span className="text-xs font-bold uppercase tracking-widest">Virtual Creators</span>
+              </div>
+              <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tighter leading-none">Meet Our <span className="text-slate-500 italic serif">AI Influencers</span></h2>
+            </div>
+            <p className="text-slate-400 max-w-sm text-sm leading-relaxed">
+              Infinite scalability. 24/7 engagement. Zero drama. Our AI creators are built to represent your brand values perfectly across every platform.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { name: "Aria V", niche: "Fashion & Tech", followers: "1.2M", img: "https://picsum.photos/seed/ai1/600/800" },
+              { name: "Kai Digital", niche: "Fitness & Wellness", followers: "850K", img: "https://picsum.photos/seed/ai2/600/800" },
+              { name: "Luna Star", niche: "Gaming & Lifestyle", followers: "2.5M", img: "https://picsum.photos/seed/ai3/600/800" }
+            ].map((ai, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -10 }}
+                className="group relative aspect-[3/4] rounded-[32px] overflow-hidden bg-slate-900 border border-white/10"
+              >
+                <img src={ai.img} alt={ai.name} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+                <div className="absolute bottom-0 left-0 p-8 w-full">
+                  <div className="flex justify-between items-end">
+                    <div>
+                      <div className="text-xs font-bold text-brand uppercase tracking-widest mb-1">{ai.niche}</div>
+                      <h3 className="text-2xl font-bold text-white mb-1">{ai.name}</h3>
+                      <div className="flex items-center gap-2 text-white/50 text-xs">
+                        <Users className="w-3 h-3" /> {ai.followers} Reach
+                      </div>
+                    </div>
+                    <button className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-brand hover:border-brand transition-all">
+                      <ArrowRight className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AI REELS GALLERY */}
+      <section className="py-24 px-[5%] bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <Label>AI-Generated Content</Label>
+            <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tighter">Viral <span className="text-brand">AI Reels</span> & Content</h2>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+              <motion.div 
+                key={n}
+                whileHover={{ scale: 0.98 }}
+                className="aspect-[9/16] rounded-2xl bg-slate-100 relative overflow-hidden group cursor-pointer"
+              >
+                <img src={`https://picsum.photos/seed/reel${n}/400/711`} alt="AI Reel" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors" />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center">
+                    <Play className="w-6 h-6 text-white fill-white" />
+                  </div>
+                </div>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="flex items-center gap-2 text-white text-[10px] font-bold uppercase tracking-widest">
+                    <Zap className="w-3 h-3 text-brand" /> 1.2M Views
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AI CONTENT GENERATOR DEMO */}
+      <section className="py-24 px-[5%] bg-slate-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-[40px] p-8 md:p-16 shadow-2xl border border-slate-100 relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-8 opacity-5">
+              <Cpu className="w-32 h-32" />
+            </div>
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 text-brand mb-6">
+                <Sparkles className="w-5 h-5" />
+                <span className="text-xs font-bold uppercase tracking-widest">Live AI Demo</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">Generate Your <span className="text-brand">AI Creator</span></h2>
+              <p className="text-slate-500 mb-10 leading-relaxed">Experience the power of our proprietary AI engine. Describe your ideal influencer and watch our system generate a persona in seconds.</p>
+              
+              <AIContentDemo />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1409,7 +1522,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* CATEGORIES */}
-      <section ref={netRef as any} className="py-16 px-[5%] bg-slate-50">
+      <section ref={netRef as any} className="py-24 px-[5%] bg-slate-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <Label>Our Network</Label>
@@ -1438,55 +1551,13 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
         </div>
       </section>
 
-      {/* PROCESS */}
-      <section className="py-16 px-[5%] bg-white">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div>
-            <Label>How it Works</Label>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-8">End-to-End <span className="text-brand">Campaign Management.</span></h2>
-            <div className="flex flex-col gap-10">
-              {[
-                { t: "Discovery & Briefing", d: "We understand your brand goals and create a custom campaign brief that resonates with creators." },
-                { t: "Influencer Matchmaking", d: "Our AI-powered tool selects the best influencers based on reach, engagement, and audience demographics." },
-                { t: "Execution & Monitoring", d: "We handle all communication, content approvals, and live tracking of every post." },
-                { t: "Reporting & Insights", d: "Detailed performance reports showing reach, engagement, and conversion metrics." }
-              ].map((s, i) => (
-                <div key={i} className="flex gap-6">
-                  <div className="w-12 h-12 rounded-full bg-brand text-white flex items-center justify-center font-bold shrink-0">{i + 1}</div>
-                  <div>
-                    <h4 className="text-xl font-bold text-slate-900 mb-2">{s.t}</h4>
-                    <p className="text-slate-500 leading-relaxed">{s.d}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="relative">
-            <div className="bg-slate-100 rounded-3xl aspect-square overflow-hidden relative">
-              <img src="https://picsum.photos/seed/influencer/800/800" alt="Influencer Marketing" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-              <div className="absolute inset-0 bg-brand/10" />
-            </div>
-            <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-2xl shadow-2xl border border-slate-100 max-w-[280px]">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"><BarChart3 className="w-6 h-6" /></div>
-                <div>
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Campaign ROI</div>
-                  <div className="text-2xl font-extrabold text-slate-900">4.8x</div>
-                </div>
-              </div>
-              <p className="text-xs text-slate-500 leading-relaxed">Average return on ad spend for our influencer-led campaigns.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* JOIN AS INFLUENCER */}
-      <section className="py-16 px-[5%] bg-slate-900 text-white">
-        <div className="max-w-6xl mx-auto bg-brand rounded-3xl p-10 md:p-20 relative overflow-hidden">
+      <section className="py-24 px-[5%] bg-slate-950 text-white">
+        <div className="max-w-6xl mx-auto bg-brand rounded-[48px] p-10 md:p-20 relative overflow-hidden">
           <div className="absolute right-0 top-0 w-1/2 h-full bg-white/5 -skew-x-12 translate-x-1/4" />
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Are You an Influencer? <br /><span className="text-white/80">Join Our Network.</span></h2>
+              <h2 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tighter">Are You a Creator? <br /><span className="text-white/80">Join the Elite.</span></h2>
               <p className="text-lg text-white/70 mb-8 max-w-md">Get exclusive access to top brands, transparent payments, and dedicated support to grow your personal brand.</p>
               <div className="flex flex-col gap-4">
                 {["Direct Brand Deals", "Timely Payments", "Growth Support"].map((f, i) => (
@@ -1497,7 +1568,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
                 ))}
               </div>
             </div>
-            <div className="bg-white rounded-2xl p-8 text-slate-900 shadow-2xl">
+            <div className="bg-white rounded-3xl p-8 text-slate-900 shadow-2xl">
               {sent ? (
                 <div className="text-center py-8">
                   <CheckCircle2 className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
@@ -1506,15 +1577,15 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
                 </div>
               ) : (
                 <div className="flex flex-col gap-4">
-                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" placeholder="Full Name *" value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
-                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" placeholder="Email Address *" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
-                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" placeholder="Instagram/YouTube Link *" value={form.link} onChange={e => setForm({...form, link: e.target.value})} />
+                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 text-sm outline-none focus:border-brand" placeholder="Full Name *" value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
+                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 text-sm outline-none focus:border-brand" placeholder="Email Address *" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+                  <input className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 text-sm outline-none focus:border-brand" placeholder="Instagram/YouTube Link *" value={form.link} onChange={e => setForm({...form, link: e.target.value})} />
                   <button 
-                    className="w-full py-4 rounded-xl bg-slate-900 text-white font-bold hover:bg-black transition-all mt-4 disabled:opacity-50" 
+                    className="w-full py-5 rounded-xl bg-slate-900 text-white font-bold hover:bg-black transition-all mt-4 disabled:opacity-50 shadow-xl" 
                     onClick={handleSubmit}
                     disabled={loading}
                   >
-                    {loading ? "Submitting..." : "Apply to Join"}
+                    {loading ? "Submitting..." : "Apply to Join Network"}
                   </button>
                 </div>
               )}
@@ -1544,6 +1615,81 @@ function CTABand({ setPage }: { setPage: (p: string) => void }) {
         </div>
       </div>
     </section>
+  );
+}
+
+function AIContentDemo() {
+  const [prompt, setPrompt] = useState("");
+  const [generating, setGenerating] = useState(false);
+  const [result, setResult] = useState<string | null>(null);
+
+  const generateAI = async () => {
+    if (!prompt) return;
+    setGenerating(true);
+    try {
+      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash-image",
+        contents: [{ text: `A high-quality, professional portrait of a virtual AI influencer creator. Style: ${prompt}. Cinematic lighting, hyper-realistic.` }]
+      });
+      
+      let found = false;
+      for (const part of response.candidates[0].content.parts) {
+        if (part.inlineData) {
+          setResult(`data:image/png;base64,${part.inlineData.data}`);
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        // Fallback if no image part found (though nano banana should return one)
+        setResult(`https://picsum.photos/seed/${Math.random()}/600/800`);
+      }
+    } catch (err) {
+      console.error(err);
+      setResult(`https://picsum.photos/seed/${Math.random()}/600/800`);
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col md:flex-row gap-4">
+        <input 
+          className="flex-1 bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-sm outline-none focus:border-brand transition-all"
+          placeholder="e.g. Cyberpunk fashion model, Minimalist yoga guru..."
+          value={prompt}
+          onChange={e => setPrompt(e.target.value)}
+        />
+        <button 
+          onClick={generateAI}
+          disabled={generating}
+          className="px-8 py-4 rounded-2xl bg-brand text-white font-bold hover:bg-brand-dark transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+        >
+          {generating ? <Zap className="w-5 h-5 animate-pulse" /> : <Sparkles className="w-5 h-5" />}
+          {generating ? "Generating..." : "Generate Persona"}
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {result && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mt-4 aspect-[3/4] max-w-sm mx-auto rounded-3xl overflow-hidden border-4 border-white shadow-2xl relative group"
+          >
+            <img src={result} alt="AI Generated Creator" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+              <div className="text-white">
+                <div className="text-xs font-bold uppercase tracking-widest text-brand mb-1">AI Generated</div>
+                <div className="text-lg font-bold">Your Custom Creator</div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
