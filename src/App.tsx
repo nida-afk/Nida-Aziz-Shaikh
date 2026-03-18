@@ -521,7 +521,11 @@ function ClientLogoItem({ client }: any) {
     if (isGenerating) return;
     setIsGenerating(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const ai = new GoogleGenAI({ 
+        apiKey: process.env.GEMINI_API_KEY,
+        // @ts-ignore
+        fetch: window.fetch.bind(window)
+      });
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash-image',
         contents: {
@@ -1346,51 +1350,111 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
   return (
     <div id="influencer" className="min-h-screen bg-white">
       {/* HERO */}
-      <section ref={heroRef as any} className="pt-24 pb-16 px-[5%] bg-slate-950 text-white relative overflow-hidden">
+      <section ref={heroRef as any} className="pt-32 pb-20 px-[5%] bg-slate-950 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#FF6321_0%,transparent_50%)] opacity-10" />
           <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_80%,#FF6321_0%,transparent_50%)] opacity-10" />
         </div>
-        <div className="max-w-6xl mx-auto relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={heroInView ? { opacity: 1, scale: 1 } : {}}
-            className="mb-8 inline-block"
-          >
-            <div className="px-4 py-1.5 rounded-full border border-brand/30 bg-brand/10 text-brand text-[10px] font-bold uppercase tracking-[0.2em] backdrop-blur-sm">
-              Next-Gen Creator Economy
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="text-left">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={heroInView ? { opacity: 1, scale: 1 } : {}}
+                className="mb-8 inline-block"
+              >
+                <div className="px-4 py-1.5 rounded-full border border-brand/30 bg-brand/10 text-brand text-[10px] font-bold uppercase tracking-[0.2em] backdrop-blur-sm">
+                  Next-Gen Creator Economy
+                </div>
+              </motion.div>
+              <motion.h1 
+                initial={{ opacity: 0, y: 30 }}
+                animate={heroInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.1 }}
+                className="text-5xl md:text-8xl font-extrabold tracking-tighter mb-8 leading-[0.9]"
+              >
+                The Future of <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-orange-400">Influence is AI.</span>
+              </motion.h1>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={heroInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.2 }}
+                className="text-xl text-slate-400 max-w-xl mb-12 leading-relaxed font-medium"
+              >
+                From human creators to virtual AI influencers, we manage the world's most engaging digital personas for global makeup and beauty brands.
+              </motion.p>
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={heroInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.3 }}
+                className="flex flex-wrap gap-6"
+              >
+                <button className="px-10 py-5 rounded-full bg-brand text-white font-bold text-lg hover:bg-brand-dark shadow-[0_0_40px_rgba(255,99,33,0.3)] transition-all hover:scale-105 active:scale-95" onClick={() => setPage("contact")}>Start Campaign</button>
+                <button 
+                  className="px-10 py-5 rounded-full bg-white/5 text-white font-bold text-lg border border-white/10 hover:bg-white/10 backdrop-blur-md transition-all" 
+                  onClick={() => {
+                    const el = document.getElementById("gallery");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  View Gallery
+                </button>
+              </motion.div>
             </div>
-          </motion.div>
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1 }}
-            className="text-5xl md:text-8xl font-extrabold tracking-tighter mb-8 leading-[0.9]"
-          >
-            The Future of <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-orange-400">Influence is AI.</span>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed font-medium"
-          >
-            From human creators to virtual AI influencers, we manage the world's most engaging digital personas.
-          </motion.p>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-6"
-          >
-            <button className="px-10 py-5 rounded-full bg-brand text-white font-bold text-lg hover:bg-brand-dark shadow-[0_0_40px_rgba(255,99,33,0.3)] transition-all hover:scale-105 active:scale-95" onClick={() => setPage("contact")}>Start Campaign</button>
-            <button className="px-10 py-5 rounded-full bg-white/5 text-white font-bold text-lg border border-white/10 hover:bg-white/10 backdrop-blur-md transition-all" onClick={() => setPage("contact")}>View AI Roster</button>
-          </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={heroInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="relative"
+            >
+              <div className="relative aspect-[4/5] rounded-[40px] overflow-hidden shadow-[0_0_100px_rgba(255,99,33,0.15)] border border-white/10">
+                <img 
+                  src="https://picsum.photos/seed/makeup-hero-girl/800/1000" 
+                  alt="AI Makeup Influencer" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                
+                {/* Floating Stats Card */}
+                <div className="absolute bottom-8 left-8 right-8 bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-3xl">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-brand">
+                      <img src="https://picsum.photos/seed/avatar1/100/100" alt="Avatar" referrerPolicy="no-referrer" />
+                    </div>
+                    <div>
+                      <div className="text-white font-bold">Aria V.</div>
+                      <div className="text-brand text-[10px] font-bold uppercase tracking-widest">AI Beauty Creator</div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <div className="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">Engagement</div>
+                      <div className="text-white font-bold">8.4%</div>
+                    </div>
+                    <div>
+                      <div className="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">Reach</div>
+                      <div className="text-white font-bold">1.2M+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Decorative Glow */}
+              <div className="absolute -top-20 -right-20 w-64 h-64 bg-brand/20 rounded-full blur-[100px] -z-10" />
+              <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-orange-500/10 rounded-full blur-[100px] -z-10" />
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* AI INFLUENCERS SECTION */}
+      <AIInfluencerGallery />
+      <AIAdvertisingShowcase />
+
       <section className="py-16 px-[5%] bg-slate-950 relative overflow-hidden">
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
@@ -1623,6 +1687,8 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
         </div>
       </section>
 
+      <SkincareAISection />
+
       <CTABand setPage={setPage} />
     </div>
   );
@@ -1647,6 +1713,241 @@ function CTABand({ setPage }: { setPage: (p: string) => void }) {
   );
 }
 
+function SkincareAISection() {
+  const [prompt, setPrompt] = useState("");
+  const [generating, setGenerating] = useState(false);
+  const [result, setResult] = useState<string | null>(null);
+  const [type, setType] = useState<"reel" | "photo">("reel");
+  const [category, setCategory] = useState<"skincare" | "makeup" | "fashion">("skincare");
+
+  const generateAI = async () => {
+    setGenerating(true);
+    try {
+      // Explicitly passing fetch to avoid "Cannot set property fetch of #<Window>" error
+      const ai = new GoogleGenAI({ 
+        apiKey: process.env.GEMINI_API_KEY,
+        // @ts-ignore - explicitly passing fetch to the constructor if supported by this version
+        fetch: window.fetch.bind(window)
+      });
+      
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash-image",
+        contents: [{ text: `A high-quality, professional ${type === "reel" ? "video frame of an unboxing reel" : "product photography"} for a luxury ${category} brand. Style: ${prompt || "Minimalist, clean, aesthetic"}. Cinematic lighting, hyper-realistic, showing textures and elegant packaging.` }]
+      });
+      
+      let found = false;
+      for (const part of response.candidates[0].content.parts) {
+        if (part.inlineData) {
+          setResult(`data:image/png;base64,${part.inlineData.data}`);
+          found = true;
+          break;
+        }
+      }
+      if (!found) setResult(`https://picsum.photos/seed/${category}${Math.random()}/600/800`);
+    } catch (err) {
+      console.error(err);
+      setResult(`https://picsum.photos/seed/${category}${Math.random()}/600/800`);
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  return (
+    <section className="py-24 px-[5%] bg-slate-950 text-white overflow-hidden">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <Label>AI Creative Studio</Label>
+          <h2 className="text-4xl md:text-7xl font-extrabold tracking-tighter mb-6">Generate <span className="text-brand">Brand Content</span> with AI</h2>
+          <p className="text-slate-400 max-w-2xl mx-auto text-lg">Instant unboxing reels and professional product photos for skincare, makeup, and fashion. No studio needed.</p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-[32px] shadow-2xl">
+            <div className="flex gap-4 mb-6">
+              {(["skincare", "makeup", "fashion"] as const).map((cat) => (
+                <button 
+                  key={cat}
+                  onClick={() => setCategory(cat)}
+                  className={`flex-1 py-2 rounded-lg font-bold text-[10px] uppercase tracking-widest transition-all ${category === cat ? "bg-white text-slate-950" : "bg-white/5 text-white/40 hover:bg-white/10"}`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex gap-4 mb-8">
+              <button 
+                onClick={() => setType("reel")}
+                className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${type === "reel" ? "bg-brand text-white" : "bg-white/5 text-white/60 hover:bg-white/10"}`}
+              >
+                Unboxing Reel
+              </button>
+              <button 
+                onClick={() => setType("photo")}
+                className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${type === "photo" ? "bg-brand text-white" : "bg-white/5 text-white/60 hover:bg-white/10"}`}
+              >
+                Product Photo
+              </button>
+            </div>
+            
+            <div className="space-y-6">
+              <div>
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block">Describe the Vibe</label>
+                <textarea 
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm outline-none focus:border-brand transition-all min-h-[120px] text-white"
+                  placeholder={`e.g. ${category === 'skincare' ? 'Morning sun hitting a glass bottle of serum...' : category === 'makeup' ? 'Close up of a luxury lipstick with gold accents...' : 'Aesthetic fashion flatlay with silk textures...'}`}
+                  value={prompt}
+                  onChange={e => setPrompt(e.target.value)}
+                />
+              </div>
+              <button 
+                onClick={generateAI}
+                disabled={generating}
+                className="w-full py-5 rounded-2xl bg-brand text-white font-bold hover:bg-brand-dark transition-all disabled:opacity-50 flex items-center justify-center gap-3 shadow-[0_0_40px_rgba(255,99,33,0.3)]"
+              >
+                {generating ? <Zap className="w-6 h-6 animate-pulse" /> : <Sparkles className="w-6 h-6" />}
+                {generating ? "AI is Crafting..." : `Generate AI ${type === "reel" ? "Reel" : "Photo"}`}
+              </button>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -inset-4 bg-brand/20 blur-3xl rounded-full opacity-50" />
+            <AnimatePresence mode="wait">
+              {result ? (
+                <motion.div 
+                  key={result}
+                  initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  className="relative aspect-[9/16] max-w-[340px] mx-auto rounded-[40px] overflow-hidden border-8 border-white/10 shadow-2xl group"
+                >
+                  <img src={result} alt="AI Generated Content" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
+                    <div className="text-brand font-black text-xs uppercase tracking-[0.2em] mb-2">AI Generated {category} {type}</div>
+                    <div className="text-xl font-bold text-white leading-tight">Perfect for your next campaign.</div>
+                  </div>
+                </motion.div>
+              ) : (
+                <div className="aspect-[9/16] max-w-[340px] mx-auto rounded-[40px] border-2 border-dashed border-white/20 flex flex-col items-center justify-center text-center p-8 text-white/30">
+                  <ImageIcon className="w-12 h-12 mb-4 opacity-20" />
+                  <p className="text-sm font-medium">Your AI-generated {category} {type} will appear here.</p>
+                </div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AIAdvertisingShowcase() {
+  const ads = [
+    { title: "Luxury Silk Collection", cat: "Clothing", img: "https://picsum.photos/seed/fashion-girl-1/800/1000", tag: "Fashion", size: "tall" },
+    { title: "Velvet Matte Lipstick", cat: "Makeup", img: "https://picsum.photos/seed/makeup-girl-1/800/1000", tag: "Beauty", size: "square" },
+    { title: "Summer Linen Series", cat: "Clothing", img: "https://picsum.photos/seed/fashion-girl-2/800/1000", tag: "Fashion", size: "square" },
+    { title: "Hydra-Glow Foundation", cat: "Makeup", img: "https://picsum.photos/seed/makeup-girl-2/800/1000", tag: "Beauty", size: "tall" },
+    { title: "Urban Streetwear", cat: "Clothing", img: "https://picsum.photos/seed/fashion-girl-3/800/1000", tag: "Fashion", size: "tall" },
+    { title: "Midnight Eyeshadow", cat: "Makeup", img: "https://picsum.photos/seed/makeup-girl-3/800/1000", tag: "Beauty", size: "square" },
+    { title: "Boho Chic Accessories", cat: "Fashion", img: "https://picsum.photos/seed/fashion-girl-4/800/1000", tag: "Fashion", size: "square" },
+    { title: "Radiant Skin Serum", cat: "Skincare", img: "https://picsum.photos/seed/skincare-girl-1/800/1000", tag: "Beauty", size: "tall" },
+  ];
+
+  return (
+    <section id="gallery" className="py-24 px-[5%] bg-slate-50">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className="max-w-2xl">
+            <Label>Campaign Gallery</Label>
+            <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tighter mb-6">AI-Generated <span className="text-brand">Advertising Gallery</span></h2>
+            <p className="text-slate-500 text-lg">Hyper-realistic AI creators delivering high-impact advertising for global makeup and clothing brands.</p>
+          </div>
+          <div className="flex gap-4">
+            <div className="px-6 py-3 rounded-full bg-white border border-slate-200 text-slate-900 font-bold text-sm shadow-sm">600+ AI Models</div>
+            <div className="px-6 py-3 rounded-full bg-brand text-white font-bold text-sm shadow-lg shadow-brand/20">98% Realism Score</div>
+          </div>
+        </div>
+
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+          {ads.map((ad, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="break-inside-avoid group relative rounded-[32px] overflow-hidden shadow-2xl bg-slate-200"
+            >
+              <img 
+                src={ad.img} 
+                alt={ad.title} 
+                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" 
+                referrerPolicy="no-referrer" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+              
+              <div className="absolute top-6 left-6 flex gap-2">
+                <div className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold uppercase tracking-widest">
+                  {ad.tag}
+                </div>
+                <div className="px-3 py-1 rounded-full bg-brand text-white text-[10px] font-bold uppercase tracking-widest">
+                  AI Generated
+                </div>
+              </div>
+
+              <div className="absolute bottom-8 left-8 right-8">
+                <div className="text-white/60 text-xs font-bold uppercase tracking-widest mb-2">{ad.cat}</div>
+                <h3 className="text-2xl font-bold text-white mb-4 leading-tight">{ad.title}</h3>
+                <button className="flex items-center gap-2 text-brand font-bold text-sm group-hover:gap-3 transition-all">
+                  View Campaign Details <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AIInfluencerGallery() {
+  const influencers = [
+    { name: "Sasha V.", niche: "Fashion", img: "https://picsum.photos/seed/fashionai1/600/800" },
+    { name: "Elena R.", niche: "Makeup", img: "https://picsum.photos/seed/makeupai1/600/800" },
+    { name: "Marcus K.", niche: "Lifestyle", img: "https://picsum.photos/seed/lifestyleai1/600/800" },
+    { name: "Chloe M.", niche: "Skincare", img: "https://picsum.photos/seed/skincareai1/600/800" },
+  ];
+
+  return (
+    <section className="py-24 px-[5%] bg-white">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <Label>AI Influencer Studio</Label>
+          <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tighter mb-6">AI-Generated <span className="text-brand">Influencer Avatars</span></h2>
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg">Scale your influencer marketing with hyper-realistic AI avatars tailored to your brand's aesthetic.</p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {influencers.map((inf, i) => (
+            <motion.div 
+              key={i}
+              whileHover={{ y: -10 }}
+              className="relative aspect-[3/4] rounded-3xl overflow-hidden group shadow-xl"
+            >
+              <img src={inf.img} alt={inf.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
+                <div className="text-white font-bold text-lg">{inf.name}</div>
+                <div className="text-brand font-bold text-xs uppercase tracking-widest">{inf.niche}</div>
+              </div>
+              <div className="absolute top-4 right-4 bg-brand text-white text-[8px] font-black px-2 py-1 rounded-full uppercase tracking-tighter">AI Generated</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function AIContentDemo() {
   const [prompt, setPrompt] = useState("");
   const [generating, setGenerating] = useState(false);
@@ -1656,7 +1957,11 @@ function AIContentDemo() {
     if (!prompt) return;
     setGenerating(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const ai = new GoogleGenAI({ 
+        apiKey: process.env.GEMINI_API_KEY,
+        // @ts-ignore
+        fetch: window.fetch.bind(window)
+      });
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash-image",
         contents: [{ text: `A high-quality, professional portrait of a virtual AI influencer creator. Style: ${prompt}. Cinematic lighting, hyper-realistic.` }]
@@ -1861,6 +2166,73 @@ function SvcPage({ svcId, setPage }: { svcId: string, setPage: (p: string) => vo
           </div>
         </div>
       </section>
+
+      {svcId === "influencer" && (
+        <>
+          <AIInfluencerGallery />
+          <AIAdvertisingShowcase />
+        </>
+      )}
+
+      {svcId === "social-ads" && (
+        <section className="py-24 px-[5%] bg-slate-50">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <Label>Ad Creative Showcase</Label>
+              <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tighter">Product Demo <span className="text-brand">Ads in Action</span></h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { t: "Dynamic Demo", d: "Educate and convert simultaneously.", img: "https://picsum.photos/seed/demo1/600/800" },
+                { t: "Feature Highlight", d: "Showcase unique selling points.", img: "https://picsum.photos/seed/demo2/600/800" },
+                { t: "Lifestyle Integration", d: "Product in real-world use.", img: "https://picsum.photos/seed/demo3/600/800" }
+              ].map((ad, i) => (
+                <div key={i} className="group rounded-3xl overflow-hidden bg-white shadow-xl border border-slate-100">
+                  <div className="aspect-[3/4] overflow-hidden">
+                    <img src={ad.img} alt={ad.t} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" referrerPolicy="no-referrer" />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">{ad.t}</h3>
+                    <p className="text-sm text-slate-500">{ad.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {svcId === "content" && (
+        <section className="py-24 px-[5%] bg-slate-900 text-white overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-brand/10 blur-[120px] -z-10" />
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+              <div>
+                <Label>Highest-Converting Format</Label>
+                <h2 className="text-4xl md:text-7xl font-extrabold tracking-tighter mb-8 leading-[0.9]">Problem-Solution <span className="text-brand">Ads</span></h2>
+                <p className="text-2xl font-bold text-white/80 mb-8 italic serif">"Hook with a problem, sell with your solution — the highest-converting format."</p>
+                <p className="text-lg text-slate-400 leading-relaxed mb-10">We engineer content that identifies your customer's deepest pain points and positions your product as the only logical answer. This psychological framework consistently outperforms standard brand awareness content.</p>
+                <div className="space-y-4">
+                  {["Pain Point Identification", "Solution Positioning", "Strong Call-to-Action"].map((step, i) => (
+                    <div key={i} className="flex gap-4 items-center">
+                      <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-xs font-bold">{i + 1}</div>
+                      <span className="font-bold text-white/90">{step}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="relative">
+                <div className="aspect-square rounded-[40px] bg-white/5 border border-white/10 p-4 relative overflow-hidden">
+                   <img src="https://picsum.photos/seed/problem1/800/800" alt="Problem Solution Ad" className="w-full h-full object-cover rounded-[32px] opacity-80" referrerPolicy="no-referrer" />
+                   <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="px-8 py-4 bg-brand text-white font-black text-2xl uppercase tracking-tighter shadow-2xl rotate-[-5deg]">The Solution</div>
+                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
       
       <CTABand setPage={setPage} />
     </div>
