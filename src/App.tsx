@@ -31,7 +31,9 @@ import {
   Cpu,
   Zap,
   PlayCircle,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Package,
+  MessageSquare
 } from "lucide-react";
 
 // ─── CONSTANTS ───
@@ -97,10 +99,10 @@ const CLIENTS = [
 
 const SVCS = [
   { id: "ugc", icon: <Play className="w-6 h-6" />, title: "UGC Content", short: "Authentic creator videos that convert at every funnel stage.", color: B, bg: "#EBF2FF", tagline: "Real People. Real Content. Real Conversions.", features: ["Unboxing & Review Videos", "Testimonials & Social Proof", "Tutorial & Demo Reels", "Lifestyle Content", "UGC for Meta, Google & YouTube", "Hook Testing & Multi-Variant"], results: [{ n: "3-5x", l: "Higher CTR" }, { n: "67%", l: "Lower CPA" }, { n: "48hr", l: "Avg delivery" }] },
-  { id: "influencer", icon: <Star className="w-6 h-6" />, title: "Influencer Marketing", short: "End-to-end influencer campaigns from nano to celebrity.", color: "#7C3AED", bg: "#F3E8FF", tagline: "The Right Voice. The Right Audience.", features: ["Nano, Micro & Macro Campaigns", "Celebrity Tie-ups", "Instagram Reels & Stories", "YouTube Integrations", "Brand Safety Vetting", "Full Campaign Management"], results: [{ n: "500+", l: "Vetted influencers" }, { n: "1B+", l: "Combined reach" }, { n: "4.2%", l: "Avg engagement" }] },
-  { id: "social-ads", icon: <Megaphone className="w-6 h-6" />, title: "Social Media Ads", short: "Paid social on Meta, Instagram & YouTube built on data.", color: "#F97316", bg: "#FFF4ED", tagline: "Scroll-Stopping Ads. Measurable ROI.", features: ["Meta & Instagram Ads", "YouTube & Google Display", "Retargeting Campaigns", "Creative A/B Testing", "Audience Segmentation", "Daily Budget Optimisation"], results: [{ n: "4.8x", l: "Average ROAS" }, { n: "40%", l: "Lower CPM" }, { n: "2x", l: "Conversion uplift" }] },
+  { id: "influencer", icon: <Star className="w-6 h-6" />, title: "Influencer Marketing", short: "End-to-end influencer campaigns from nano to celebrity.", color: "#7C3AED", bg: "#F3E8FF", tagline: "The Right Voice. The Right Audience.", features: ["Nano, Micro & Macro Campaigns", "Celebrity Tie-ups", "Instagram Reels & Stories", "YouTube Integrations", "Brand Safety Vetting", "Full Campaign Management", "Unboxing Videos (Makeup & Skincare)", "Testimonial Videos"], results: [{ n: "500+", l: "Vetted influencers" }, { n: "1B+", l: "Combined reach" }, { n: "4.2%", l: "Avg engagement" }] },
+  { id: "social-ads", icon: <Megaphone className="w-6 h-6" />, title: "Social Media Ads", short: "Paid social on Meta, Instagram & YouTube built on data.", color: "#F97316", bg: "#FFF4ED", tagline: "Scroll-Stopping Ads. Measurable ROI.", features: ["Meta & Instagram Ads", "YouTube & Google Display", "Retargeting Campaigns", "Creative A/B Testing", "Audience Segmentation", "Daily Budget Optimisation", "Product Demo Ads"], results: [{ n: "4.8x", l: "Average ROAS" }, { n: "40%", l: "Lower CPM" }, { n: "2x", l: "Conversion uplift" }] },
   { id: "performance", icon: <Target className="w-6 h-6" />, title: "Performance Marketing", short: "Full-funnel strategies engineered around ROAS and CPA.", color: "#059669", bg: "#ECFDF5", tagline: "Every Rupee Accountable.", features: ["Google Search & Shopping", "Meta Performance Campaigns", "YouTube Video Funnels", "Landing Page CRO", "ROAS & CPA Optimisation", "Weekly Performance Reviews"], results: [{ n: "120+", l: "Brands scaled" }, { n: "₹50Cr+", l: "Ad spend managed" }, { n: "3.8x", l: "Avg ROAS" }] },
-  { id: "content", icon: <PenTool className="w-6 h-6" />, title: "Content Marketing", short: "Blogs, copy and brand storytelling that build authority.", color: "#0EA5E9", bg: "#E0F2FE", tagline: "Content That Ranks and Converts.", features: ["SEO Blog Writing", "Social Media Copywriting", "Email Campaigns", "Case Studies & Whitepapers", "Brand Storytelling", "Content Calendar Strategy"], results: [{ n: "3x", l: "Organic traffic growth" }, { n: "60%", l: "More time-on-site" }, { n: "45%", l: "Higher email opens" }] },
+  { id: "content", icon: <PenTool className="w-6 h-6" />, title: "Content Marketing", short: "Blogs, copy and brand storytelling that build authority.", color: "#0EA5E9", bg: "#E0F2FE", tagline: "Content That Ranks and Converts.", features: ["SEO Blog Writing", "Social Media Copywriting", "Email Campaigns", "Case Studies & Whitepapers", "Brand Storytelling", "Content Calendar Strategy", "Problem-Solution Ads"], results: [{ n: "3x", l: "Organic traffic growth" }, { n: "60%", l: "More time-on-site" }, { n: "45%", l: "Higher email opens" }] },
   { id: "seo", icon: <Search className="w-6 h-6" />, title: "SEO", short: "Technical SEO and link building that improves rankings.", color: "#DC2626", bg: "#FEF2F2", tagline: "Rank Higher. Grow Organically.", features: ["Full Technical Audit", "Keyword Research", "On-Page Optimisation", "Off-Page & Link Building", "Local SEO", "Monthly Ranking Reports"], results: [{ n: "2.5x", l: "Organic traffic" }, { n: "Top 5", l: "Keyword rankings" }, { n: "35%", l: "More organic leads" }] },
   { id: "aeo", icon: <Search className="w-6 h-6" />, title: "AEO", short: "Optimising your brand for AI search engines like Perplexity & ChatGPT.", color: "#0D9488", bg: "#F0FDFA", tagline: "Be the Answer AI Gives.", features: ["AI Visibility Audit", "Answer Engine Optimisation", "Structured Data Markup", "Conversational Keyword Research", "Brand Authority Building", "AI Search Tracking"], results: [{ n: "85%", l: "AI Citation Rate" }, { n: "2x", l: "Brand Mentions" }, { n: "Top 3", l: "AI Recommendations" }] },
   { id: "design", icon: <Code className="w-6 h-6" />, title: "Design & Development", short: "High-converting landing pages and D2C storefronts.", color: "#4F46E5", bg: "#EEF2FF", tagline: "Built for Speed. Designed for Sales.", features: ["Custom Shopify Stores", "High-CVR Landing Pages", "UI/UX Design", "Web Performance Tuning", "Mobile-First Development", "Conversion Rate Optimisation"], results: [{ n: "45%", l: "CVR Improvement" }, { n: "90+", l: "PageSpeed Score" }, { n: "3x", l: "Faster Load Time" }] },
@@ -147,6 +149,14 @@ const CASE_STUDIES = [
   { brand: "ReadySetBoom", cat: "Digital Marketing", result: "4x ROAS", sub: "Performance Strategy & Campaign Management", col: "#0EA5E9", bg: "#E0F2FE" },
   { brand: "Sunset BBQ Grill", cat: "E-commerce", result: "40% Sales Boost", sub: "Magento to Shopify Migration & SEO", col: "#DC2626", bg: "#FEF2F2" },
   { brand: "Cross Point Design", cat: "Web Development", result: "Responsive Design", sub: "Custom Web Solutions for Creative Agencies", col: "#0D9488", bg: "#F0FDFA" },
+];
+
+const BLOG_POSTS = [
+  { title: "How UGC is Outperforming Studio Content in 2025", date: "Mar 15, 2026", cat: "UGC Strategy", img: "https://picsum.photos/seed/blog1/800/450" },
+  { title: "The Rise of AI Influencers: Why Brands are Switching", date: "Mar 10, 2026", cat: "Influencer Marketing", img: "https://picsum.photos/seed/blog2/800/450" },
+  { title: "5 Performance Marketing Hacks for D2C Brands", date: "Mar 05, 2026", cat: "Performance", img: "https://picsum.photos/seed/blog3/800/450" },
+  { title: "Scaling to 10Cr/mo: A Case Study in Performance Marketing", date: "Feb 28, 2026", cat: "Case Study", img: "https://picsum.photos/seed/blog4/800/450" },
+  { title: "Why Problem-Solution Ads are Your Highest Converting Format", date: "Feb 20, 2026", cat: "Ad Strategy", img: "https://picsum.photos/seed/blog5/800/450" },
 ];
 
 const PROCESS = [
@@ -272,20 +282,19 @@ function Label({ children }: { children: React.ReactNode }) {
 function Logo({ onClick }: { onClick?: () => void }) {
   return (
     <div className="flex items-center gap-3 cursor-pointer group" onClick={onClick}>
-      <div className="relative w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center shrink-0 bg-brand shadow-lg shadow-brand/20 group-hover:scale-105 transition-transform">
+      <div className="relative w-12 h-12 rounded-xl overflow-hidden flex items-center justify-center shrink-0 bg-white border border-slate-100 shadow-sm group-hover:scale-105 transition-transform">
         <img 
-          src="https://scontent.fpnq6-1.fna.fbcdn.net/v/t39.30808-1/590807351_122098733535148525_6374173426190407819_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=102&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=YWd0pszrpOIQ7kNvwFvw5g5&_nc_oc=Adl6cy4OOqlK60YqoFVzNr7Ib5z62m_4OV-ohCZjo-EeACyz7b6KjY3u4AFadLTkrbe_puQ5YviyDMBYx1jPw5hR&_nc_zt=24&_nc_ht=scontent.fpnq6-1.fna&_nc_gid=K8gx9vcSGSJkFTLtK-kW7g&_nc_ss=8&oh=00_Afz1KmGu_jKpq0Y4huWektUYwp2vmthtJDRH_Ek8kuMKNQ&oe=69C03878" 
+          src="https://scontent.fpnq6-1.fna.fbcdn.net/v/t39.30808-6/590807351_122098733535148525_6374173426190407819_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=YWd0pszrpOIQ7kNvwFvw5g5&_nc_oc=Adl6cy4OOqlK60YqoFVzNr7Ib5z62m_4OV-ohCZjo-EeACyz7b6KjY3u4AFadLTkrbe_puQ5YviyDMBYx1jPw5hR&_nc_zt=23&_nc_ht=scontent.fpnq6-1.fna&_nc_gid=Y4Lk2C39or5wJ64llBK4oQ&_nc_ss=8&oh=00_AfyJVvlO-YNMyODvVzylTW41Hmsem4op57x0j5y_dQQVog&oe=69C050D3" 
           alt="Brand Propel Studio" 
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain p-1"
           referrerPolicy="no-referrer"
           onError={(e) => {
             e.currentTarget.style.display = 'none';
           }}
         />
-        <div className="absolute inset-0 bg-brand/10 group-hover:bg-transparent transition-colors" />
       </div>
       <div className="flex flex-col leading-none">
-        <span className="text-lg font-black tracking-tighter text-slate-900 group-hover:text-brand transition-colors" style={{ textDecorationLine: 'none' }}>Brand propel studio</span>
+        <span className="text-xl font-black tracking-tighter text-slate-900 group-hover:text-brand transition-colors" style={{ textDecorationLine: 'none' }}>Brand propel studio</span>
         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">codism io</span>
       </div>
     </div>
@@ -362,6 +371,7 @@ function Navbar({ page, handleNav, scrolled }: { page: string, handleNav: (p: st
           </AnimatePresence>
         </div>
         <button className={`text-sm font-semibold transition-colors ${page === "contact" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => handleNav("contact")}>Contact</button>
+        <button className={`text-sm font-semibold transition-colors ${page === "blogs" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => handleNav("blogs")}>Blogs</button>
       </div>
 
       <div className="flex gap-3 items-center">
@@ -396,7 +406,7 @@ function Navbar({ page, handleNav, scrolled }: { page: string, handleNav: (p: st
               <button onClick={() => setIsOpen(false)}><X className="text-slate-900" /></button>
             </div>
             <div className="flex flex-col gap-4 mt-8">
-              {["Home", "Contact"].map(item => (
+              {["Home", "Blogs", "Contact"].map(item => (
                 <button 
                   key={item} 
                   className="text-2xl font-bold text-slate-900 text-left"
@@ -469,7 +479,7 @@ function Foot({ handleNav }: { handleNav: (p: string, s?: string) => void }) {
         </div>
         {[
           { t: "Services", ls: [{ l: "UGC Content", p: "svc-ugc" }, { l: "Influencer Marketing", p: "svc-influencer" }, { l: "Social Media Ads", p: "svc-social-ads" }, { l: "Performance Marketing", p: "svc-performance" }, { l: "AEO", p: "svc-aeo" }, { l: "Design & Development", p: "svc-design" }] },
-          { t: "Company", ls: [{ l: "About Us", p: "about" }, { l: "Blog", p: "blog" }, { l: "Contact", p: "contact" }] },
+          { t: "Company", ls: [{ l: "About Us", p: "about" }, { l: "Blogs & Case Studies", p: "blogs" }, { l: "Contact", p: "contact" }] },
           { t: "Contact", ls: [{ l: "hello@brandpropelstudio.in", p: "" }, { l: "+91 98765 43210", p: "" }, { l: "Pune, India", p: "" }] },
         ].map((col, i) => (
           <div key={i}>
@@ -1573,6 +1583,46 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
         </div>
       </section>
 
+      {/* NEW: UNBOXING & TESTIMONIALS SECTION */}
+      <section className="py-24 px-[5%] bg-slate-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div>
+              <Label>High-Converting Formats</Label>
+              <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tighter mb-8 leading-tight">Content That <span className="text-brand">Builds Desire</span></h2>
+              <div className="space-y-8">
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 rounded-2xl bg-brand/10 flex items-center justify-center shrink-0">
+                    <Package className="w-6 h-6 text-brand" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Unboxing Videos (Makeup & Skincare)</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">First-impression content that builds desire before the purchase. Perfect for reels and stories.</p>
+                  </div>
+                </div>
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 rounded-2xl bg-brand/10 flex items-center justify-center shrink-0">
+                    <MessageSquare className="w-6 h-6 text-brand" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Testimonial Videos</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">Real customers sharing authentic experiences with your product. The ultimate social proof.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="aspect-[9/16] rounded-3xl bg-slate-200 overflow-hidden shadow-2xl">
+                <img src="https://picsum.photos/seed/unboxing1/400/711" alt="Unboxing" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              </div>
+              <div className="aspect-[9/16] rounded-3xl bg-slate-200 overflow-hidden shadow-2xl mt-12">
+                <img src="https://picsum.photos/seed/testimonial1/400/711" alt="Testimonial" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <CTABand setPage={setPage} />
     </div>
   );
@@ -1672,9 +1722,85 @@ function AIContentDemo() {
   );
 }
 
+function BlogsPage() {
+  const [ref, inView] = useInView(0.05);
+  return (
+    <div className="min-h-screen pt-24 pb-16 px-[5%] bg-slate-50">
+      <div className="max-w-6xl mx-auto">
+        <Label>Our Blog</Label>
+        <h1 className="text-4xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-12">Insights & <span className="text-brand">Case Studies</span></h1>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          {BLOG_POSTS.map((post, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all"
+            >
+              <div className="aspect-video relative overflow-hidden">
+                <img src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" referrerPolicy="no-referrer" />
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-bold text-slate-900 uppercase tracking-widest">{post.cat}</div>
+              </div>
+              <div className="p-8">
+                <div className="text-xs text-slate-400 font-bold mb-3">{post.date}</div>
+                <h3 className="text-xl font-bold text-slate-900 mb-6 group-hover:text-brand transition-colors">{post.title}</h3>
+                <button className="flex items-center gap-2 text-brand font-bold text-sm group-hover:gap-3 transition-all">
+                  Read More <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="border-t border-slate-200 pt-20">
+          <Label>Success Stories</Label>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-12">Detailed Case Studies</h2>
+          <div ref={ref as any} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {CASE_STUDIES.map((cs, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: i * 0.1 }}
+                className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all flex flex-col md:flex-row"
+              >
+                <div className="w-full md:w-1/3 aspect-square md:aspect-auto relative overflow-hidden">
+                  <img src={`https://picsum.photos/seed/cs${i}/400/400`} alt={cs.brand} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" referrerPolicy="no-referrer" />
+                </div>
+                <div className="p-8 flex-1">
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-2xl font-bold text-slate-900">{cs.brand}</h3>
+                    <div className="px-3 py-1 rounded-lg bg-brand-light text-brand text-xs font-bold">{cs.result}</div>
+                  </div>
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">{cs.cat}</div>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6">{cs.sub}</p>
+                  <button className="flex items-center gap-2 text-brand font-bold text-sm group-hover:gap-3 transition-all">
+                    View Full Case Study <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function SvcPage({ svcId, setPage }: { svcId: string, setPage: (p: string) => void }) {
   const svc = SVCS.find(s => s.id === svcId) || SVCS[0];
   const [ref, inView] = useInView(0.05);
+
+  // Custom descriptions for specific features
+  const featureDetails: Record<string, string> = {
+    "Product Demo Ads": "Show your product in action to educate and convert simultaneously.",
+    "Problem-Solution Ads": "Hook with a problem, sell with your solution — the highest-converting format.",
+    "Unboxing Videos (Makeup & Skincare)": "First-impression content that builds desire before the purchase.",
+    "Testimonial Videos": "Real customers sharing authentic experiences with your product."
+  };
+
   return (
     <div className="min-h-screen">
       <section className="pt-24 pb-12 px-[5%] relative overflow-hidden" style={{ background: `linear-gradient(135deg, ${svc.bg} 0%, #fff 60%)` }}>
@@ -1721,10 +1847,15 @@ function SvcPage({ svcId, setPage }: { svcId: string, setPage: (p: string) => vo
                 initial={{ opacity: 0, y: 10 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: i * 0.05 }}
-                className="p-6 rounded-2xl border border-slate-100 bg-slate-50 flex gap-4 items-start"
+                className="p-6 rounded-2xl border border-slate-100 bg-slate-50 flex flex-col gap-3 items-start"
               >
-                <CheckCircle2 className="w-5 h-5 shrink-0 mt-1" style={{ color: svc.color }} />
-                <span className="text-sm font-bold text-slate-700 leading-tight">{ft}</span>
+                <div className="flex gap-3 items-center">
+                  <CheckCircle2 className="w-5 h-5 shrink-0" style={{ color: svc.color }} />
+                  <span className="text-sm font-bold text-slate-700 leading-tight">{ft}</span>
+                </div>
+                {featureDetails[ft] && (
+                  <p className="text-xs text-slate-500 leading-relaxed pl-8">{featureDetails[ft]}</p>
+                )}
               </motion.div>
             ))}
           </div>
@@ -1785,6 +1916,7 @@ export default function App() {
       case "home": return <Home setPage={setPage} />;
       case "contact": return <ContactPage />;
       case "influencer": return <InfluencerPage setPage={setPage} />;
+      case "blogs": return <BlogsPage />;
       default: return <Home setPage={setPage} />;
     }
   };
