@@ -50,17 +50,17 @@ const CLIENTS = [
   },
   { 
     name: "Sovereign Solutions", 
-    logo: "https://image.slidesharecdn.com/sovereignsolutions-230901060131-9196c577/85/Sovereign-solutions-pptx-1-320.jpg",
+    logo: "https://tse1.mm.bing.net/th/id/OIP.nC1InpfgZ-wCyHRpyz2YgAHaFQ?rs=1&pid=ImgDetMain&o=7&rm=3",
     url: "https://sovereignsolutions.com/"
   },
   { 
     name: "Stone DesignWorks", 
-    logo: "https://www.stonedesignworks.com/we/we.dll/Pic?UN=94570&F=C&T=801&Age=1434997231",
+    logo: "https://tse1.mm.bing.net/th/id/OIP.5HDEoeT5vAqVrWLIw78pRAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
     url: "https://stonedesignworks.com/"
   },
   { 
     name: "Accessibility Ventures", 
-    logo: "https://th.bing.com/th/id/OIP.ZbLIkH3d5ksjkEdM4LKxrgAAAA?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
+    logo: "https://tse1.mm.bing.net/th/id/OIP.j8JhFtZAXpBHnqqHIcOCTQHaFo?rs=1&pid=ImgDetMain&o=7&rm=3",
     url: "https://accessibilityventures.com/"
   },
   { 
@@ -274,7 +274,7 @@ function Logo({ onClick }: { onClick?: () => void }) {
     <div className="flex items-center gap-3 cursor-pointer group" onClick={onClick}>
       <div className="relative w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center shrink-0 bg-brand shadow-lg shadow-brand/20 group-hover:scale-105 transition-transform">
         <img 
-          src="https://tse1.mm.bing.net/th/id/OIP.TSdfbauVBMYaU-IJIr3oWwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" 
+          src="https://scontent.fpnq6-1.fna.fbcdn.net/v/t39.30808-1/590807351_122098733535148525_6374173426190407819_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=102&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=YWd0pszrpOIQ7kNvwFvw5g5&_nc_oc=Adl6cy4OOqlK60YqoFVzNr7Ib5z62m_4OV-ohCZjo-EeACyz7b6KjY3u4AFadLTkrbe_puQ5YviyDMBYx1jPw5hR&_nc_zt=24&_nc_ht=scontent.fpnq6-1.fna&_nc_gid=K8gx9vcSGSJkFTLtK-kW7g&_nc_ss=8&oh=00_Afz1KmGu_jKpq0Y4huWektUYwp2vmthtJDRH_Ek8kuMKNQ&oe=69C03878" 
           alt="Brand Propel Studio" 
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
@@ -285,8 +285,8 @@ function Logo({ onClick }: { onClick?: () => void }) {
         <div className="absolute inset-0 bg-brand/10 group-hover:bg-transparent transition-colors" />
       </div>
       <div className="flex flex-col leading-none">
-        <span className="text-lg font-black tracking-tighter text-slate-900 group-hover:text-brand transition-colors">BRAND PROPEL</span>
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">STUDIO</span>
+        <span className="text-lg font-black tracking-tighter text-slate-900 group-hover:text-brand transition-colors" style={{ textDecorationLine: 'none' }}>Brand propel studio</span>
+        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">codism io</span>
       </div>
     </div>
   );
@@ -326,60 +326,42 @@ function Navbar({ page, handleNav, scrolled }: { page: string, handleNav: (p: st
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
-                className="absolute top-full left-[-10px] pt-2 z-[600]"
+                className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-[600]"
               >
-                <div className="bg-white border border-slate-100 rounded-xl py-3 shadow-xl min-w-[260px]">
-                  {[
-                    { group: "Marketing", items: ["influencer", "performance", "content"] },
-                    { group: "SEO & AEO", items: ["seo", "aeo"] },
-                    { id: "ugc" },
-                    { id: "social-ads" },
-                    { id: "design" }
-                  ].map((item, idx) => {
-                    if ('group' in item) {
-                      return (
-                        <div key={idx} className="px-4 py-2">
-                          <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">{item.group}</div>
-                          <div className="flex flex-col gap-0.5">
-                            {item.items.map(id => {
-                              const s = SVCS.find(x => x.id === id);
-                              if (!s) return null;
-                              return (
-                                <button 
-                                  key={s.id} 
-                                  onClick={() => { handleNav("svc-" + s.id); setDrop(false); }}
-                                  className="w-full text-left px-2 py-1.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand flex items-center gap-3 rounded-lg transition-colors"
-                                >
-                                  <span className="text-brand opacity-80 scale-75">{s.icon}</span>
-                                  {s.title}
-                                </button>
-                              );
-                            })}
-                          </div>
+                <div className="bg-white border border-slate-100 rounded-2xl shadow-2xl min-w-[750px] overflow-hidden">
+                  <div className="grid grid-cols-3 divide-x divide-slate-50">
+                    {[
+                      { group: "Performance & Ads", items: ["performance", "social-ads", "ugc"] },
+                      { group: "Influencer & Content", items: ["influencer", "content"] },
+                      { group: "Search & Tech", items: ["seo", "aeo", "design"] }
+                    ].map((col, idx) => (
+                      <div key={idx} className="p-6">
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4 border-l-2 border-brand pl-3">{col.group}</div>
+                        <div className="flex flex-col gap-1">
+                          {col.items.map(id => {
+                            const s = SVCS.find(x => x.id === id);
+                            if (!s) return null;
+                            return (
+                              <button 
+                                key={s.id} 
+                                onClick={() => { handleNav("svc-" + s.id); setDrop(false); }}
+                                className="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand flex items-center gap-3 rounded-lg transition-colors group"
+                              >
+                                <span className="text-brand opacity-80 group-hover:scale-110 transition-transform">{s.icon}</span>
+                                {s.title}
+                              </button>
+                            );
+                          })}
                         </div>
-                      );
-                    } else {
-                      const s = SVCS.find(x => x.id === item.id);
-                      if (!s) return null;
-                      return (
-                        <button 
-                          key={s.id} 
-                          onClick={() => { handleNav("svc-" + s.id); setDrop(false); }}
-                          className="w-full text-left px-4 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand flex items-center gap-3 transition-colors"
-                        >
-                          <span className="text-brand opacity-80">{s.icon}</span>
-                          {s.title}
-                        </button>
-                      );
-                    }
-                  })}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
         <button className={`text-sm font-semibold transition-colors ${page === "contact" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => handleNav("contact")}>Contact</button>
-        <button className={`text-sm font-semibold transition-colors ${page === "influencer" ? "text-brand" : "text-slate-600 hover:text-brand"}`} onClick={() => handleNav("influencer")}>Influencer</button>
       </div>
 
       <div className="flex gap-3 items-center">
@@ -388,6 +370,12 @@ function Navbar({ page, handleNav, scrolled }: { page: string, handleNav: (p: st
           onClick={() => handleNav("contact")}
         >
           Book Free Audit
+        </button>
+        <button 
+          className="hidden sm:flex px-5 py-2 rounded-lg border-2 border-brand text-brand text-xs font-bold hover:bg-brand-light transition-all"
+          onClick={() => handleNav("influencer")}
+        >
+          Join as an Influencer
         </button>
         <button className="md:hidden text-slate-900" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X /> : <Menu />}
@@ -408,7 +396,7 @@ function Navbar({ page, handleNav, scrolled }: { page: string, handleNav: (p: st
               <button onClick={() => setIsOpen(false)}><X className="text-slate-900" /></button>
             </div>
             <div className="flex flex-col gap-4 mt-8">
-              {["Home", "Contact", "Influencer"].map(item => (
+              {["Home", "Contact"].map(item => (
                 <button 
                   key={item} 
                   className="text-2xl font-bold text-slate-900 text-left"
@@ -420,49 +408,30 @@ function Navbar({ page, handleNav, scrolled }: { page: string, handleNav: (p: st
               <div className="h-px bg-slate-100 my-2" />
               <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Services</div>
               {[
-                { group: "Marketing", items: ["influencer", "performance", "content"] },
-                { group: "SEO & AEO", items: ["seo", "aeo"] },
-                { id: "ugc" },
-                { id: "social-ads" },
-                { id: "design" }
-              ].map((item, idx) => {
-                if ('group' in item) {
-                  return (
-                    <div key={idx} className="flex flex-col gap-3 mb-2">
-                      <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-l-2 border-brand pl-3">{item.group}</div>
-                      <div className="flex flex-col gap-3 pl-3">
-                        {item.items.map(id => {
-                          const s = SVCS.find(x => x.id === id);
-                          if (!s) return null;
-                          return (
-                            <button 
-                              key={s.id} 
-                              className="text-lg font-bold text-slate-600 text-left flex items-center gap-3"
-                              onClick={() => { handleNav("svc-" + s.id); setIsOpen(false); }}
-                            >
-                              <span className="text-brand scale-90">{s.icon}</span>
-                              {s.title}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                } else {
-                  const s = SVCS.find(x => x.id === item.id);
-                  if (!s) return null;
-                  return (
-                    <button 
-                      key={s.id} 
-                      className="text-lg font-bold text-slate-600 text-left flex items-center gap-3"
-                      onClick={() => { handleNav("svc-" + s.id); setIsOpen(false); }}
-                    >
-                      <span className="text-brand">{s.icon}</span>
-                      {s.title}
-                    </button>
-                  );
-                }
-              })}
+                { group: "Performance & Ads", items: ["performance", "social-ads", "ugc"] },
+                { group: "Influencer & Content", items: ["influencer", "content"] },
+                { group: "Search & Tech", items: ["seo", "aeo", "design"] }
+              ].map((col, idx) => (
+                <div key={idx} className="flex flex-col gap-3 mb-4">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-l-2 border-brand pl-3">{col.group}</div>
+                  <div className="flex flex-col gap-4 pl-3">
+                    {col.items.map(id => {
+                      const s = SVCS.find(x => x.id === id);
+                      if (!s) return null;
+                      return (
+                        <button 
+                          key={s.id} 
+                          className="text-lg font-bold text-slate-600 text-left flex items-center gap-3"
+                          onClick={() => { handleNav("svc-" + s.id); setIsOpen(false); }}
+                        >
+                          <span className="text-brand scale-90">{s.icon}</span>
+                          {s.title}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.div>
         )}
@@ -479,10 +448,22 @@ function Foot({ handleNav }: { handleNav: (p: string, s?: string) => void }) {
           <Logo onClick={() => handleNav("home", "home")} />
           <p className="text-sm text-slate-400 leading-relaxed mt-6 max-w-xs">India's leading UGC and performance marketing studio built to scale D2C brands.</p>
           <div className="flex gap-3 mt-8">
-            {[Instagram, Youtube, Linkedin, Twitter, Facebook].map((Icon, i) => (
-              <button key={i} className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-white/60 hover:bg-brand hover:text-white transition-all">
-                <Icon className="w-4 h-4" />
-              </button>
+            {[
+              { Icon: Instagram, url: "https://www.instagram.com/brandpropelstudio/reels/" },
+              { Icon: Youtube, url: "https://www.youtube.com/@BrandPropelStudio" },
+              { Icon: Linkedin, url: "https://www.linkedin.com/company/propel-studios/" },
+              { Icon: Twitter, url: "https://x.com/brand_prop81404" },
+              { Icon: Facebook, url: "https://www.facebook.com/profile.php?id=61584455763253#" }
+            ].map((social, i) => (
+              <a 
+                key={i} 
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-white/60 hover:bg-brand hover:text-white transition-all"
+              >
+                <social.Icon className="w-4 h-4" />
+              </a>
             ))}
           </div>
         </div>
@@ -563,7 +544,7 @@ function ClientLogoItem({ client }: any) {
       href={client.url} 
       target="_blank" 
       rel="noopener noreferrer"
-      className="flex items-center justify-center p-8 rounded-2xl bg-slate-50 border border-slate-100 grayscale hover:grayscale-0 transition-all hover:shadow-lg hover:bg-white group h-32 relative overflow-hidden"
+      className="flex items-center justify-center p-4 rounded-2xl bg-white border border-slate-100 grayscale hover:grayscale-0 transition-all hover:shadow-lg group h-28 relative overflow-hidden"
     >
       <div className="text-center w-full h-full flex items-center justify-center">
         {isGenerating ? (
@@ -577,7 +558,7 @@ function ClientLogoItem({ client }: any) {
           <img 
             src={imgSrc} 
             alt={client.name} 
-            className="max-w-full max-h-full object-contain"
+            className="w-full h-full object-contain"
             referrerPolicy="no-referrer"
             onError={() => {
               generateFallback();
@@ -659,17 +640,15 @@ function Testimonials() {
 }
 
 function ROICalculator({ setPage }: { setPage: (p: string) => void }) {
-  const [spend, setSpend] = useState(100000);
-  const [aov, setAov] = useState(2500);
-  const [cvr, setCvr] = useState(2.5);
+  const [spend, setSpend] = useState(0);
+  const [aov, setAov] = useState(0);
+  const [cvr, setCvr] = useState(0);
 
-  const estimatedRevenue = (spend / (spend * 0.01)) * (cvr / 100) * aov * 100; // Simplified for demo
-  // More realistic: Spend / CPC * CVR * AOV. Let's assume CPC is 20
   const cpc = 20;
   const clicks = spend / cpc;
   const conversions = clicks * (cvr / 100);
   const revenue = conversions * aov;
-  const roas = revenue / spend;
+  const roas = spend > 0 ? revenue / spend : 0;
 
   return (
     <section className="py-20 px-[5%] bg-slate-900 text-white relative overflow-hidden">
@@ -688,7 +667,7 @@ function ROICalculator({ setPage }: { setPage: (p: string) => void }) {
                   <span className="font-bold text-brand">₹{spend.toLocaleString()}</span>
                 </div>
                 <input 
-                  type="range" min="10000" max="1000000" step="10000" 
+                  type="range" min="0" max="1000000" step="10000" 
                   value={spend} onChange={(e) => setSpend(Number(e.target.value))}
                   className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand"
                 />
@@ -699,7 +678,7 @@ function ROICalculator({ setPage }: { setPage: (p: string) => void }) {
                   <span className="font-bold text-brand">₹{aov.toLocaleString()}</span>
                 </div>
                 <input 
-                  type="range" min="500" max="10000" step="100" 
+                  type="range" min="0" max="10000" step="100" 
                   value={aov} onChange={(e) => setAov(Number(e.target.value))}
                   className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand"
                 />
@@ -710,7 +689,7 @@ function ROICalculator({ setPage }: { setPage: (p: string) => void }) {
                   <span className="font-bold text-brand">{cvr}%</span>
                 </div>
                 <input 
-                  type="range" min="0.5" max="10" step="0.1" 
+                  type="range" min="0" max="10" step="0.1" 
                   value={cvr} onChange={(e) => setCvr(Number(e.target.value))}
                   className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand"
                 />
@@ -769,7 +748,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
   return (
     <>
       {/* HERO */}
-      <section id="home" ref={heroRef as any} className="min-h-screen flex items-center bg-gradient-to-br from-brand-light via-white to-[#F2F5FF] px-[5%] pt-24 pb-16 relative overflow-hidden">
+      <section id="home" ref={heroRef as any} className="min-h-screen flex items-center bg-gradient-to-br from-brand-light via-white to-[#F2F5FF] px-[5%] pt-20 pb-12 relative overflow-hidden">
         <div className="absolute right-[-200px] top-[5%] w-[700px] h-[700px] rounded-full bg-radial-gradient from-brand/5 to-transparent pointer-events-none" />
         
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10">
@@ -907,7 +886,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       <ClientLogos />
 
       {/* WHY CHOOSE US - UNIQUE PROPOSITION */}
-      <section className="py-20 px-[5%] bg-white">
+      <section className="py-12 px-[5%] bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <Label>The Propel Advantage</Label>
@@ -941,7 +920,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* SERVICES */}
-      <section id="services" ref={svcRef as any} className="py-10 px-[5%] bg-white">
+      <section id="services" ref={svcRef as any} className="py-8 px-[5%] bg-white">
         <div className="text-center mb-10">
           <Label>What We Do</Label>
           <motion.h2 
@@ -985,7 +964,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* CASE STUDIES */}
-      <section id="work" ref={workRef as any} className="py-10 px-[5%] bg-slate-50">
+      <section id="work" ref={workRef as any} className="py-8 px-[5%] bg-slate-50">
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-10">
           <div>
             <Label>Our Work</Label>
@@ -1019,7 +998,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* BEFORE VS AFTER */}
-      <section className="py-20 px-[5%] bg-white">
+      <section className="py-12 px-[5%] bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="order-2 lg:order-1">
@@ -1074,7 +1053,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* CREATORS SECTION */}
-      <section ref={creatorRef as any} className="py-20 px-[5%] bg-slate-50 overflow-hidden">
+      <section ref={creatorRef as any} className="py-12 px-[5%] bg-slate-50 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -1134,7 +1113,7 @@ function Home({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* PROCESS */}
-      <section id="process" ref={processRef as any} className="py-10 px-[5%] bg-slate-900 text-white overflow-hidden relative">
+      <section id="process" ref={processRef as any} className="py-8 px-[5%] bg-slate-900 text-white overflow-hidden relative">
         <div className="absolute left-[-10%] bottom-[-10%] w-[40%] aspect-square rounded-full bg-brand/10 blur-[120px]" />
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
@@ -1233,7 +1212,7 @@ function ContactPage() {
   };
 
   return (
-    <div id="contact" className="pt-32 pb-24 px-[5%] bg-slate-50 min-h-screen">
+    <div id="contact" className="pt-24 pb-16 px-[5%] bg-slate-50 min-h-screen">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           <div>
@@ -1357,7 +1336,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
   return (
     <div id="influencer" className="min-h-screen bg-white">
       {/* HERO */}
-      <section ref={heroRef as any} className="pt-32 pb-24 px-[5%] bg-slate-950 text-white relative overflow-hidden">
+      <section ref={heroRef as any} className="pt-24 pb-16 px-[5%] bg-slate-950 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#FF6321_0%,transparent_50%)] opacity-10" />
           <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_80%,#FF6321_0%,transparent_50%)] opacity-10" />
@@ -1402,7 +1381,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* AI INFLUENCERS SECTION */}
-      <section className="py-24 px-[5%] bg-slate-950 relative overflow-hidden">
+      <section className="py-16 px-[5%] bg-slate-950 relative overflow-hidden">
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div className="max-w-xl">
@@ -1451,7 +1430,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* AI REELS GALLERY */}
-      <section className="py-24 px-[5%] bg-white">
+      <section className="py-16 px-[5%] bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <Label>AI-Generated Content</Label>
@@ -1484,7 +1463,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* AI CONTENT GENERATOR DEMO */}
-      <section className="py-24 px-[5%] bg-slate-50">
+      <section className="py-16 px-[5%] bg-slate-50">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-[40px] p-8 md:p-16 shadow-2xl border border-slate-100 relative overflow-hidden">
             <div className="absolute top-0 right-0 p-8 opacity-5">
@@ -1522,7 +1501,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* CATEGORIES */}
-      <section ref={netRef as any} className="py-24 px-[5%] bg-slate-50">
+      <section ref={netRef as any} className="py-16 px-[5%] bg-slate-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <Label>Our Network</Label>
@@ -1552,8 +1531,8 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
       </section>
 
       {/* JOIN AS INFLUENCER */}
-      <section className="py-24 px-[5%] bg-slate-950 text-white">
-        <div className="max-w-6xl mx-auto bg-brand rounded-[48px] p-10 md:p-20 relative overflow-hidden">
+      <section className="py-16 px-[5%] bg-slate-950 text-white">
+        <div className="max-w-6xl mx-auto bg-brand rounded-[48px] p-10 md:p-16 relative overflow-hidden">
           <div className="absolute right-0 top-0 w-1/2 h-full bg-white/5 -skew-x-12 translate-x-1/4" />
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -1601,7 +1580,7 @@ function InfluencerPage({ setPage }: { setPage: (p: string) => void }) {
 
 function CTABand({ setPage }: { setPage: (p: string) => void }) {
   return (
-    <section className="py-16 px-[5%] bg-gradient-to-br from-brand to-brand-dark text-center relative overflow-hidden">
+    <section className="py-12 px-[5%] bg-gradient-to-br from-brand to-brand-dark text-center relative overflow-hidden">
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "32px 32px" }} />
       
       <div className="relative z-10">
@@ -1698,7 +1677,7 @@ function SvcPage({ svcId, setPage }: { svcId: string, setPage: (p: string) => vo
   const [ref, inView] = useInView(0.05);
   return (
     <div className="min-h-screen">
-      <section className="pt-32 pb-20 px-[5%] relative overflow-hidden" style={{ background: `linear-gradient(135deg, ${svc.bg} 0%, #fff 60%)` }}>
+      <section className="pt-24 pb-12 px-[5%] relative overflow-hidden" style={{ background: `linear-gradient(135deg, ${svc.bg} 0%, #fff 60%)` }}>
         <div className="max-w-6xl mx-auto">
           <button onClick={() => setPage("home")} className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-brand mb-8 transition-colors">
             <ArrowRight className="w-4 h-4 rotate-180" /> Back to Home
@@ -1717,7 +1696,7 @@ function SvcPage({ svcId, setPage }: { svcId: string, setPage: (p: string) => vo
         </div>
       </section>
 
-      <section className="py-12 px-[5%]" style={{ backgroundColor: svc.color }}>
+      <section className="py-10 px-[5%]" style={{ backgroundColor: svc.color }}>
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {svc.results.map((r, i) => (
             <div key={i} className="text-center py-8 border-b md:border-b-0 md:border-r border-white/20 last:border-0">
@@ -1728,7 +1707,7 @@ function SvcPage({ svcId, setPage }: { svcId: string, setPage: (p: string) => vo
         </div>
       </section>
 
-      <section ref={ref as any} className="py-16 px-[5%] bg-white">
+      <section ref={ref as any} className="py-10 px-[5%] bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
           <div>
             <Label>What is Included</Label>
